@@ -1,12 +1,16 @@
 import React from 'react';
 import SmallFilmCard from '../../components/small-film-card/small-film-card.tsx';
 import {MainPageProps} from './main-page.props.ts';
-import {SmallFilmCardProps} from '../../components/small-film-card/small-film-card.props.ts';
 import FilmCard from '../../components/film-card/film-card.tsx';
+import {ISmallFilmCard} from '../../components/small-film-card/small-film-card.interface.ts';
+import {Helmet} from 'react-helmet-async';
 
 export default function MainPage({filmCardProps, smallFilmsCards}: MainPageProps): React.JSX.Element {
   return (
     <>
+      <Helmet>
+        <title>WTW. Главная страница</title>
+      </Helmet>
       <FilmCard
         name={filmCardProps.name}
         genre={filmCardProps.genre}
@@ -51,7 +55,7 @@ export default function MainPage({filmCardProps, smallFilmsCards}: MainPageProps
           </ul>
 
           <div className="catalog__films-list">
-            {smallFilmsCards.map((smallFilmCard: SmallFilmCardProps) =>
+            {smallFilmsCards.map((smallFilmCard: ISmallFilmCard) =>
               (
                 <SmallFilmCard
                   key={smallFilmCard.id}
