@@ -1,14 +1,20 @@
-import React from 'react';
+import {JSX} from 'react';
 import {Helmet} from 'react-helmet-async';
+import {PlayerPageProps} from './player-page.props.ts';
+import {useParams} from 'react-router-dom';
+import {IFilmCard} from '../../components/film-card/film-card.interface.ts';
 
-export default function PlayerPage(): React.JSX.Element {
+export default function PlayerPage({filmsCards}: PlayerPageProps): JSX.Element {
+  const {id} = useParams();
+  const film: IFilmCard | undefined = filmsCards.find((filmCard: IFilmCard) => filmCard.id === id);
+
   return (
     <>
       <Helmet>
         <title>WTW. Просмотр фильма</title>
       </Helmet>
       <div className="player">
-        <video src="#" className="player__video" poster="img/player-poster.jpg"></video>
+        <video src={film?.videoLink} className="player__video" poster="img/player-poster.jpg"></video>
 
         <button type="button" className="player__exit">Exit</button>
 
@@ -16,7 +22,7 @@ export default function PlayerPage(): React.JSX.Element {
           <div className="player__controls-row">
             <div className="player__time">
               <progress className="player__progress" value="30" max="100"></progress>
-              <div className="player__toggler" style={{left: '30%'}}>Toggler</div> {/* Здесь было style="left: 30%;"*/}
+              <div className="player__toggler" style={{left: '30%'}}>Toggler</div>
             </div>
             <div className="player__time-value">1:30:29</div>
           </div>

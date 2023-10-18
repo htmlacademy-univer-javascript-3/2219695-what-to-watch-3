@@ -1,5 +1,7 @@
 export interface ISmallFilmCard {
-  id: number;
-  imgSrc: string;
+  id: string;
   name: string;
+  previewImage: string;
+  previewVideoLink: string;
+  genre: string;
 }

@@ -1,20 +1,19 @@
-import React from 'react';
-import SmallFilmCard from '../../components/small-film-card/small-film-card.tsx';
+import {JSX} from 'react';
 import {MainPageProps} from './main-page.props.ts';
-import FilmCard from '../../components/film-card/film-card.tsx';
-import {ISmallFilmCard} from '../../components/small-film-card/small-film-card.interface.ts';
+import PromoFilmCard from '../../components/promo-film-card/promo-film-card.tsx';
 import {Helmet} from 'react-helmet-async';
+import FilmsList from '../../components/films-list/films-list.tsx';
 
-export default function MainPage({filmCardProps, smallFilmsCards}: MainPageProps): React.JSX.Element {
+export default function MainPage({promoFilmCardProps, smallFilmsCards}: MainPageProps): JSX.Element {
   return (
     <>
       <Helmet>
         <title>WTW. Главная страница</title>
       </Helmet>
-      <FilmCard
-        name={filmCardProps.name}
-        genre={filmCardProps.genre}
-        date={filmCardProps.date}
+      <PromoFilmCard
+        name={promoFilmCardProps.name}
+        genre={promoFilmCardProps.genre}
+        date={promoFilmCardProps.date}
       />
 
       <div className="page-content">
@@ -54,18 +53,7 @@ export default function MainPage({filmCardProps, smallFilmsCards}: MainPageProps
             </li>
           </ul>
 
-          <div className="catalog__films-list">
-            {smallFilmsCards.map((smallFilmCard: ISmallFilmCard) =>
-              (
-                <SmallFilmCard
-                  key={smallFilmCard.id}
-                  imgSrc={smallFilmCard.imgSrc}
-                  name={smallFilmCard.name}
-                />
-              )
-            )}
-
-          </div>
+          <FilmsList smallFilmCards={smallFilmsCards}/>
 
           <div className="catalog__more">
             <button className="catalog__button" type="button">Show more</button>

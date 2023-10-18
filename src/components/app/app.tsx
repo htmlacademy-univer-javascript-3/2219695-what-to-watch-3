@@ -1,6 +1,5 @@
 import MainPage from '../../pages/main/main-page.tsx';
-import React from 'react';
-import {MainPageProps} from '../../pages/main/main-page.props.ts';
+import {JSX} from 'react';
 import {BrowserRouter, Route, Routes} from 'react-router-dom';
 import {AppRoute, AuthStatus} from './const.ts';
 import LoginPage from '../../pages/login/login-page.tsx';
@@ -11,15 +10,16 @@ import NotFoundPage from '../../pages/not-found/not-found-page.tsx';
 import PrivateRoute from '../private-route/private-route.tsx';
 import MyListPage from '../../pages/my-list/my-list-page.tsx';
 import {HelmetProvider} from 'react-helmet-async';
+import {AppProps} from './app.props.ts';
 
-export default function App({filmCardProps, smallFilmsCards}: MainPageProps): React.JSX.Element {
+export default function App({mainPageProps, filmPageProps, playerPageProps, reviewPageProps}: AppProps): JSX.Element {
   return (
     <HelmetProvider>
       <BrowserRouter>
         <Routes>
           <Route
             path={AppRoute.Main}
-            element={<MainPage filmCardProps={filmCardProps} smallFilmsCards={smallFilmsCards}/>}
+            element={<MainPage promoFilmCardProps={mainPageProps.promoFilmCardProps} smallFilmsCards={mainPageProps.smallFilmsCards}/>}
           />
           <Route
             path={AppRoute.Login}
@@ -28,25 +28,25 @@ export default function App({filmCardProps, smallFilmsCards}: MainPageProps): Re
           <Route
             path={AppRoute.MyList}
             element={
-              <PrivateRoute authStatus={AuthStatus.NoAuth}>
-                <MyListPage/>
+              <PrivateRoute authStatus={AuthStatus.Auth}>
+                <MyListPage smallFilmsCards={mainPageProps.smallFilmsCards}/>
               </PrivateRoute>
             }
           />
           <Route
             path={AppRoute.Film}
-            element={<FilmPage/>}
+            element={<FilmPage filmsCards={filmPageProps.filmsCards}/>}
           />
           <Route
             path={AppRoute.AddReview}
-            element={<ReviewPage/>}
+            element={<ReviewPage filmsCards={reviewPageProps.filmsCards}/>}
           />
           <Route
             path={AppRoute.Player}
-            element={<PlayerPage/>}
+            element={<PlayerPage filmsCards={playerPageProps.filmsCards}/>}
           />
           <Route
-            path={AppRoute.NotFound}
+            path={'*'}
             element={<NotFoundPage/>}
           />
         </Routes>

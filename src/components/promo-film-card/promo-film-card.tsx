@@ -1,7 +1,7 @@
-import React from 'react';
-import {FilmCardProps} from './film-card.props.ts';
+import {JSX} from 'react';
+import {PromoFilmCardProps} from './promo-film-card.props.ts';
 
-export default function FilmCard({name, genre, date}: FilmCardProps): React.JSX.Element {
+export default function PromoFilmCard({name, genre, date}: PromoFilmCardProps): JSX.Element {
   return (
     <section className="film-card">
       <div className="film-card__bg">
