@@ -10,6 +10,7 @@ import {ReviewPageProps} from './pages/review/review-page.props.ts';
 
 const mainPageProps: MainPageProps = {
   promoFilmCardProps: {
+    id: '123',
     name: 'The Grand Budapest Hotel',
     genre: 'Drama',
     date: '2014'

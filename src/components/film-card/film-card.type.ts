@@ -1,4 +1,4 @@
-export interface IFilmCard {
+export type Film = {
   id: string;
   name: string;
   posterImage: string;

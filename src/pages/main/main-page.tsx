@@ -11,6 +11,7 @@ export default function MainPage({promoFilmCardProps, smallFilmsCards}: MainPage
         <title>WTW. Главная страница</title>
       </Helmet>
       <PromoFilmCard
+        id={promoFilmCardProps.id}
         name={promoFilmCardProps.name}
         genre={promoFilmCardProps.genre}
         date={promoFilmCardProps.date}

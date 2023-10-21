@@ -1,50 +1,54 @@
 import {JSX} from 'react';
 import {Helmet} from 'react-helmet-async';
 import {PlayerPageProps} from './player-page.props.ts';
-import {useParams} from 'react-router-dom';
-import {IFilmCard} from '../../components/film-card/film-card.interface.ts';
+import {Navigate, useParams} from 'react-router-dom';
+import {Film} from '../../components/film-card/film-card.type.ts';
 
 export default function PlayerPage({filmsCards}: PlayerPageProps): JSX.Element {
   const {id} = useParams();
-  const film: IFilmCard | undefined = filmsCards.find((filmCard: IFilmCard) => filmCard.id === id);
+  const film: Film | undefined = filmsCards.find((filmCard: Film) => filmCard.id === id);
 
   return (
-    <>
-      <Helmet>
-        <title>WTW. Просмотр фильма</title>
-      </Helmet>
-      <div className="player">
-        <video src={film?.videoLink} className="player__video" poster="img/player-poster.jpg"></video>
+    <div>
+      {film !== undefined ?
+        <>
+          <Helmet>
+            <title>WTW. Просмотр фильма</title>
+          </Helmet>
+          <div className="player">
+            <video src={film.videoLink} className="player__video" poster="img/player-poster.jpg"></video>
 
-        <button type="button" className="player__exit">Exit</button>
+            <button type="button" className="player__exit">Exit</button>
 
-        <div className="player__controls">
-          <div className="player__controls-row">
-            <div className="player__time">
-              <progress className="player__progress" value="30" max="100"></progress>
-              <div className="player__toggler" style={{left: '30%'}}>Toggler</div>
+            <div className="player__controls">
+              <div className="player__controls-row">
+                <div className="player__time">
+                  <progress className="player__progress" value="30" max="100"></progress>
+                  <div className="player__toggler" style={{left: '30%'}}>Toggler</div>
+                </div>
+                <div className="player__time-value">1:30:29</div>
+              </div>
+
+              <div className="player__controls-row">
+                <button type="button" className="player__play">
+                  <svg viewBox="0 0 19 19" width="19" height="19">
+                    <use xlinkHref="#play-s"></use>
+                  </svg>
+                  <span>Play</span>
+                </button>
+                <div className="player__name">Transpotting</div>
+
+                <button type="button" className="player__full-screen">
+                  <svg viewBox="0 0 27 27" width="27" height="27">
+                    <use xlinkHref="#full-screen"></use>
+                  </svg>
+                  <span>Full screen</span>
+                </button>
+              </div>
             </div>
-            <div className="player__time-value">1:30:29</div>
           </div>
-
-          <div className="player__controls-row">
-            <button type="button" className="player__play">
-              <svg viewBox="0 0 19 19" width="19" height="19">
-                <use xlinkHref="#play-s"></use>
-              </svg>
-              <span>Play</span>
-            </button>
-            <div className="player__name">Transpotting</div>
-
-            <button type="button" className="player__full-screen">
-              <svg viewBox="0 0 27 27" width="27" height="27">
-                <use xlinkHref="#full-screen"></use>
-              </svg>
-              <span>Full screen</span>
-            </button>
-          </div>
-        </div>
-      </div>
-    </>
+        </>
+        : <Navigate to={'not-found'}/>}
+    </div>
   );
 }

@@ -1,6 +1,6 @@
-import {IFilmCard} from '../components/film-card/film-card.interface.ts';
+import {Film} from '../components/film-card/film-card.type.ts';
 
-export const filmsCards: IFilmCard[] = [
+export const filmsCards: Film[] = [
   {
     id: '1',
     name: 'Fantastic Beasts: The Crimes of Grindelwald',

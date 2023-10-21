@@ -1,129 +1,42 @@
 import {ChangeEvent, JSX, useState} from 'react';
 
+const RATING_VALUES: number[] = [10, 9, 8, 7, 6, 5, 4, 3, 2, 1];
+
 export default function ReviewForm(): JSX.Element {
-  const [reviewForm, setReviewForm] = useState({
-    rating: '',
-    reviewText: ''
-  });
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars,@typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [rating, setRating] = useState('');
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars,@typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [reviewText, setReviewText] = useState('');
 
   const handleInputOnChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setReviewForm({
-      ...reviewForm,
-      rating: e.target.value
-    });
+    setRating(e.target.value);
   };
 
   const handleTextAreaOnChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    setReviewForm({
-      ...reviewForm,
-      reviewText: e.target.value
-    });
+    setReviewText(e.target.value);
   };
 
   return (
     <form action="#" className="add-review__form">
       <div className="rating">
         <div className="rating__stars">
-          <input
-            className="rating__input"
-            id="star-10"
-            type="radio"
-            name="rating"
-            value="10"
-            onChange={handleInputOnChange}
-          />
-          <label className="rating__label" htmlFor="star-10">Rating 10</label>
-
-          <input
-            className="rating__input"
-            id="star-9"
-            type="radio"
-            name="rating"
-            value="9"
-            onChange={handleInputOnChange}
-          />
-          <label className="rating__label" htmlFor="star-9">Rating 9</label>
-
-          <input
-            className="rating__input"
-            id="star-8"
-            type="radio"
-            name="rating"
-            value="8"
-            checked
-            onChange={handleInputOnChange}
-          />
-          <label className="rating__label" htmlFor="star-8">Rating 8</label>
-
-          <input
-            className="rating__input"
-            id="star-7"
-            type="radio"
-            name="rating"
-            value="7"
-            onChange={handleInputOnChange}
-          />
-          <label className="rating__label" htmlFor="star-7">Rating 7</label>
-
-          <input
-            className="rating__input"
-            id="star-6"
-            type="radio"
-            name="rating"
-            value="6"
-            onChange={handleInputOnChange}
-          />
-          <label className="rating__label" htmlFor="star-6">Rating 6</label>
-
-          <input
-            className="rating__input"
-            id="star-5"
-            type="radio"
-            name="rating"
-            value="5"
-            onChange={handleInputOnChange}
-          />
-          <label className="rating__label" htmlFor="star-5">Rating 5</label>
-
-          <input
-            className="rating__input"
-            id="star-4"
-            type="radio"
-            name="rating"
-            value="4"
-            onChange={handleInputOnChange}
-          />
-          <label className="rating__label" htmlFor="star-4">Rating 4</label>
-
-          <input
-            className="rating__input"
-            id="star-3"
-            type="radio"
-            name="rating"
-            value="3"
-            onChange={handleInputOnChange}
-          />
-          <label className="rating__label" htmlFor="star-3">Rating 3</label>
-
-          <input
-            className="rating__input"
-            id="star-2"
-            type="radio"
-            name="rating"
-            value="2"
-            onChange={handleInputOnChange}
-          />
-          <label className="rating__label" htmlFor="star-2">Rating 2</label>
-
-          <input
-            className="rating__input"
-            id="star-1"
-            type="radio"
-            name="rating"
-            value="1"
-            onChange={handleInputOnChange}
-          />
-          <label className="rating__label" htmlFor="star-1">Rating 1</label>
+          {RATING_VALUES.map((ratingValue) => (
+            <>
+              <input
+                className="rating__input"
+                id={`star-${ratingValue}`}
+                type="radio"
+                name="rating"
+                value={ratingValue}
+                onChange={handleInputOnChange}
+              />
+              <label className="rating__label" htmlFor={`star-${ratingValue}`}>Rating {ratingValue}</label>
+            </>
+          ))}
         </div>
       </div>
 

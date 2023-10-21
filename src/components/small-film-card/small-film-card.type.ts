@@ -1,4 +1,4 @@
-export interface ISmallFilmCard {
+export type SmallFilm = {
   id: string;
   name: string;
   previewImage: string;

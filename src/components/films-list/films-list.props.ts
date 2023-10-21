@@ -1,5 +1,5 @@
-import {ISmallFilmCard} from '../small-film-card/small-film-card.interface.ts';
+import {SmallFilm} from '../small-film-card/small-film-card.type.ts';
 
 export type FilmsListProps = {
-  smallFilmCards: ISmallFilmCard[];
+  smallFilmCards: SmallFilm[];
 }

@@ -1,5 +1,5 @@
-import {IFilmCard} from '../../components/film-card/film-card.interface.ts';
+import {Film} from '../../components/film-card/film-card.type.ts';
 
 export type ReviewPageProps = {
-  filmsCards: IFilmCard[];
+  filmsCards: Film[];
 }
