@@ -5,14 +5,14 @@ export const smallFilmsCards: SmallFilm[] = [
     id: '1',
     previewImage: 'img/fantastic-beasts-the-crimes-of-grindelwald.jpg',
     name: 'Fantastic Beasts: The Crimes of Grindelwald',
-    previewVideoLink: '',
+    previewVideoLink: 'https://13.design.pages.academy/static//film/video/traffic.mp4',
     genre: ''
   },
   {
     id: '2',
     previewImage: 'img/bohemian-rhapsody.jpg',
     name: 'Bohemian Rhapsody',
-    previewVideoLink: '',
+    previewVideoLink: 'https://13.design.pages.academy/static//film/video/dog.mp4',
     genre: ''
   },
   {
