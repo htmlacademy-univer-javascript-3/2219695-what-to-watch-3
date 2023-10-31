@@ -1,7 +1,11 @@
 import {JSX} from 'react';
-import {PrivateRouteProps} from './private-route.props.ts';
 import {AppRoute, AuthStatus} from '../app/const.ts';
 import {Navigate} from 'react-router-dom';
+
+export type PrivateRouteProps = {
+  authStatus: AuthStatus;
+  children: JSX.Element;
+}
 
 export default function PrivateRoute({authStatus, children}: PrivateRouteProps): JSX.Element {
   return (

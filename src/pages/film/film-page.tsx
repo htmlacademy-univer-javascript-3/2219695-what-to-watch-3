@@ -3,22 +3,23 @@ import {Helmet} from 'react-helmet-async';
 import {Link, Navigate, useNavigate, useParams} from 'react-router-dom';
 import {AppRoute} from '../../components/app/const.ts';
 import Footer from '../../components/footer/footer.tsx';
-import {FilmPageProps} from './film-page.props.ts';
-import {Film} from '../../components/film-card/film-card.type.ts';
 
-function getRating(rating: number): string {
-  if (rating > 8) {
-    return 'Very good';
-  } else if (rating > 5) {
-    return 'Good';
-  } else {
-    return 'Bad';
-  }
+import {Film} from '../../types/film.ts';
+import Tabs from '../../components/tabs/tabs.tsx';
+import {ReviewData} from '../../types/reviewData.ts';
+import {reviews} from '../../mocks/reviews.ts';
+import FilmsList from '../../components/films-list/films-list.tsx';
+import {SmallFilm} from '../../types/small-film.ts';
+
+export type FilmPageProps = {
+  filmsCards: Film[];
+  smallFilmsCards: SmallFilm[];
 }
 
-export default function FilmPage({filmsCards}: FilmPageProps): JSX.Element {
+export default function FilmPage({filmsCards, smallFilmsCards}: FilmPageProps): JSX.Element {
   const {id} = useParams();
   const film: Film | undefined = filmsCards.find((filmCard: Film) => filmCard.id === id);
+  const filmReviews: ReviewData[] = reviews;
   const navigate = useNavigate();
 
   return (
@@ -100,92 +101,25 @@ export default function FilmPage({filmsCards}: FilmPageProps): JSX.Element {
                     height="327"
                   />
                 </div>
-
-                <div className="film-card__desc">
-                  <nav className="film-nav film-card__nav">
-                    <ul className="film-nav__list">
-                      <li className="film-nav__item film-nav__item--active">
-                        <a href="#" className="film-nav__link">Overview</a>
-                      </li>
-                      <li className="film-nav__item">
-                        <a href="#" className="film-nav__link">Details</a>
-                      </li>
-                      <li className="film-nav__item">
-                        <a href="#" className="film-nav__link">Reviews</a>
-                      </li>
-                    </ul>
-                  </nav>
-
-                  <div className="film-rating">
-                    <div className="film-rating__score">{film.rating}</div>
-                    <p className="film-rating__meta">
-                      <span className="film-rating__level">
-                        {getRating(film.rating)}
-                      </span>
-                      <span className="film-rating__count">{film.scoresCount} ratings</span>
-                    </p>
-                  </div>
-
-                  <div className="film-card__text">
-                    <p>{film?.description}</p>
-
-                    <p className="film-card__director"><strong>Director: {film.director}</strong></p>
-
-                    <p className="film-card__starring">
-                      <strong>
-                        Starring: {film.starring.join(', ')}
-                      </strong>
-                    </p>
-                  </div>
-                </div>
+                <Tabs
+                  rating={film.rating}
+                  description={film.description}
+                  scoresCount={film.scoresCount}
+                  director={film.director}
+                  starring={film.starring}
+                  runTime={film.runTime}
+                  genre={film.genre}
+                  released={film.released}
+                  reviews={filmReviews}
+                  backgroundColor={film.backgroundColor}
+                />
               </div>
             </div>
           </section>
           <div className="page-content">
             <section className="catalog catalog--like-this">
               <h2 className="catalog__title">More like this</h2>
-
-              <div className="catalog__films-list">
-                <article className="small-film-card catalog__films-card">
-                  <div className="small-film-card__image">
-                    <img src="img/fantastic-beasts-the-crimes-of-grindelwald.jpg"
-                      alt="Fantastic Beasts: The Crimes of Grindelwald" width="280" height="175"
-                    />
-                  </div>
-                  <h3 className="small-film-card__title">
-                    <a className="small-film-card__link" href="film-page.html">Fantastic Beasts: The Crimes of
-                      Grindelwald
-                    </a>
-                  </h3>
-                </article>
-
-                <article className="small-film-card catalog__films-card">
-                  <div className="small-film-card__image">
-                    <img src="img/bohemian-rhapsody.jpg" alt="Bohemian Rhapsody" width="280" height="175"/>
-                  </div>
-                  <h3 className="small-film-card__title">
-                    <a className="small-film-card__link" href="film-page.html">Bohemian Rhapsody</a>
-                  </h3>
-                </article>
-
-                <article className="small-film-card catalog__films-card">
-                  <div className="small-film-card__image">
-                    <img src="img/macbeth.jpg" alt="Macbeth" width="280" height="175"/>
-                  </div>
-                  <h3 className="small-film-card__title">
-                    <a className="small-film-card__link" href="film-page.html">Macbeth</a>
-                  </h3>
-                </article>
-
-                <article className="small-film-card catalog__films-card">
-                  <div className="small-film-card__image">
-                    <img src="img/aviator.jpg" alt="Aviator" width="280" height="175"/>
-                  </div>
-                  <h3 className="small-film-card__title">
-                    <a className="small-film-card__link" href="film-page.html">Aviator</a>
-                  </h3>
-                </article>
-              </div>
+              <FilmsList smallFilmCards={smallFilmsCards} genre={film.genre} filmId={film.id}/>
             </section>
 
             <Footer/>

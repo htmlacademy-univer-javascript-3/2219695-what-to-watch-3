@@ -1,8 +1,13 @@
 import {JSX} from 'react';
-import {MainPageProps} from './main-page.props.ts';
-import PromoFilmCard from '../../components/promo-film-card/promo-film-card.tsx';
+import PromoFilmCard, {PromoFilmCardProps} from '../../components/promo-film-card/promo-film-card.tsx';
 import {Helmet} from 'react-helmet-async';
 import FilmsList from '../../components/films-list/films-list.tsx';
+import {SmallFilm} from '../../types/small-film.ts';
+
+export type MainPageProps = {
+  promoFilmCardProps: PromoFilmCardProps;
+  smallFilmsCards: SmallFilm[];
+}
 
 export default function MainPage({promoFilmCardProps, smallFilmsCards}: MainPageProps): JSX.Element {
   return (

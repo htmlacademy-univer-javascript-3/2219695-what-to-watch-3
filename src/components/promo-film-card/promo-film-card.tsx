@@ -1,6 +1,12 @@
 import {JSX} from 'react';
-import {PromoFilmCardProps} from './promo-film-card.props.ts';
 import {useNavigate} from 'react-router-dom';
+
+export type PromoFilmCardProps = {
+  id: string;
+  name: string;
+  genre: string;
+  date: string;
+}
 
 export default function PromoFilmCard({id, name, genre, date}: PromoFilmCardProps): JSX.Element {
   const navigate = useNavigate();

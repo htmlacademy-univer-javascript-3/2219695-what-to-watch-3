@@ -1,16 +1,22 @@
-import MainPage from '../../pages/main/main-page.tsx';
+import MainPage, {MainPageProps} from '../../pages/main/main-page.tsx';
 import {JSX} from 'react';
 import {BrowserRouter, Route, Routes} from 'react-router-dom';
 import {AppRoute, AuthStatus} from './const.ts';
 import LoginPage from '../../pages/login/login-page.tsx';
-import FilmPage from '../../pages/film/film-page.tsx';
-import ReviewPage from '../../pages/review/review-page.tsx';
-import PlayerPage from '../../pages/player/player-page.tsx';
+import FilmPage, {FilmPageProps} from '../../pages/film/film-page.tsx';
+import ReviewPage, {ReviewPageProps} from '../../pages/review/review-page.tsx';
+import PlayerPage, {PlayerPageProps} from '../../pages/player/player-page.tsx';
 import NotFoundPage from '../../pages/not-found/not-found-page.tsx';
 import PrivateRoute from '../private-route/private-route.tsx';
 import MyListPage from '../../pages/my-list/my-list-page.tsx';
 import {HelmetProvider} from 'react-helmet-async';
-import {AppProps} from './app.props.ts';
+
+export type AppProps = {
+  mainPageProps: MainPageProps;
+  filmPageProps: FilmPageProps;
+  playerPageProps: PlayerPageProps;
+  reviewPageProps: ReviewPageProps;
+}
 
 export default function App({mainPageProps, filmPageProps, playerPageProps, reviewPageProps}: AppProps): JSX.Element {
   return (
@@ -35,7 +41,7 @@ export default function App({mainPageProps, filmPageProps, playerPageProps, revi
           />
           <Route
             path={AppRoute.Film}
-            element={<FilmPage filmsCards={filmPageProps.filmsCards}/>}
+            element={<FilmPage filmsCards={filmPageProps.filmsCards} smallFilmsCards={filmPageProps.smallFilmsCards}/>}
           />
           <Route
             path={AppRoute.AddReview}

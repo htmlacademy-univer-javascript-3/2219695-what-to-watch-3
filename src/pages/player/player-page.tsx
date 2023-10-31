@@ -1,8 +1,11 @@
 import {JSX} from 'react';
 import {Helmet} from 'react-helmet-async';
-import {PlayerPageProps} from './player-page.props.ts';
 import {Navigate, useParams} from 'react-router-dom';
-import {Film} from '../../components/film-card/film-card.type.ts';
+import {Film} from '../../types/film.ts';
+
+export type PlayerPageProps = {
+  filmsCards: Film[];
+}
 
 export default function PlayerPage({filmsCards}: PlayerPageProps): JSX.Element {
   const {id} = useParams();
