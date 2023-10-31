@@ -1,10 +1,14 @@
 import {JSX} from 'react';
 import {Helmet} from 'react-helmet-async';
-import {MyListPageProps} from './my-list-page.props.ts';
 import FilmsList from '../../components/films-list/films-list.tsx';
 import {Link} from 'react-router-dom';
 import {AppRoute} from '../../components/app/const.ts';
 import Footer from '../../components/footer/footer.tsx';
+import {SmallFilm} from '../../types/small-film.ts';
+
+export type MyListPageProps = {
+  smallFilmsCards: SmallFilm[];
+}
 
 export default function MyListPage({smallFilmsCards}: MyListPageProps): JSX.Element {
   return (

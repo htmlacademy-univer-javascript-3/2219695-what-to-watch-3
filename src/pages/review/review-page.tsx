@@ -2,9 +2,12 @@ import {JSX} from 'react';
 import {Helmet} from 'react-helmet-async';
 import {Link, Navigate, useParams} from 'react-router-dom';
 import {AppRoute} from '../../components/app/const.ts';
-import {ReviewPageProps} from './review-page.props.ts';
-import {Film} from '../../components/film-card/film-card.type.ts';
+import {Film} from '../../types/film.ts';
 import ReviewForm from '../../components/review-form/review-form.tsx';
+
+export type ReviewPageProps = {
+  filmsCards: Film[];
+}
 
 export default function ReviewPage({filmsCards}: ReviewPageProps): JSX.Element {
   const {id} = useParams();

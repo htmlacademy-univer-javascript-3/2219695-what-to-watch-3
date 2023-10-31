@@ -1,9 +1,14 @@
 import {JSX, useRef, useState} from 'react';
-import {FilmsListProps} from './films-list.props.ts';
-import {SmallFilm} from '../small-film-card/small-film-card.type.ts';
+import {SmallFilm} from '../../types/small-film.ts';
 import SmallFilmCard from '../small-film-card/small-film-card.tsx';
 
-export default function FilmsList({smallFilmCards}: FilmsListProps): JSX.Element {
+export type FilmsListProps = {
+  smallFilmCards: SmallFilm[];
+  genre?: string;
+  filmId?: string;
+}
+
+export default function FilmsList({smallFilmCards, genre, filmId}: FilmsListProps): JSX.Element {
   const [idActiveCard, setIdActiveCard] = useState<string>('');
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
@@ -20,24 +25,69 @@ export default function FilmsList({smallFilmCards}: FilmsListProps): JSX.Element
 
   return (
     <div className="catalog__films-list">
-      {smallFilmCards.map((smallFilmCard: SmallFilm) =>
-        (
-          <article
-            className="small-film-card catalog__films-card"
-            key={smallFilmCard.id}
-            onMouseOver={() => handleArticleMouseOver(smallFilmCard.id)}
-            onMouseLeave={handleArticleMouseLeave}
-          >
-            <SmallFilmCard
-              id={smallFilmCard.id}
-              previewImage={smallFilmCard.previewImage}
-              name={smallFilmCard.name}
-              previewVideoLink={smallFilmCard.previewVideoLink}
-              isActiveCard={idActiveCard}
-            />
-          </article>
+      {genre === undefined ? smallFilmCards
+        .map((film: SmallFilm) =>
+          (
+            <article
+              className="small-film-card catalog__films-card"
+              key={film.id}
+              onMouseOver={() => handleArticleMouseOver(film.id)}
+              onMouseLeave={handleArticleMouseLeave}
+            >
+              <SmallFilmCard
+                id={film.id}
+                previewImage={film.previewImage}
+                name={film.name}
+                previewVideoLink={film.previewVideoLink}
+                isActiveCard={idActiveCard}
+              />
+            </article>
+          )
         )
-      )}
+        : smallFilmCards
+          .filter((film: SmallFilm) => (film.genre === genre && film.id !== filmId))
+          .map((film: SmallFilm) =>
+            (
+              <article
+                className="small-film-card catalog__films-card"
+                key={film.id}
+                onMouseOver={() => handleArticleMouseOver(film.id)}
+                onMouseLeave={handleArticleMouseLeave}
+              >
+                <SmallFilmCard
+                  id={film.id}
+                  previewImage={film.previewImage}
+                  name={film.name}
+                  previewVideoLink={film.previewVideoLink}
+                  isActiveCard={idActiveCard}
+                />
+              </article>
+            )
+          )}
     </div>
   );
+
+  // return (
+  //   <div className="catalog__films-list">
+  //     {smallFilmCards
+  //       .map((film: SmallFilm) =>
+  //         (
+  //           <article
+  //             className="small-film-card catalog__films-card"
+  //             key={film.id}
+  //             onMouseOver={() => handleArticleMouseOver(film.id)}
+  //             onMouseLeave={handleArticleMouseLeave}
+  //           >
+  //             <SmallFilmCard
+  //               id={film.id}
+  //               previewImage={film.previewImage}
+  //               name={film.name}
+  //               previewVideoLink={film.previewVideoLink}
+  //               isActiveCard={idActiveCard}
+  //             />
+  //           </article>
+  //         )
+  //       )}
+  //   </div>
+  // );
 }

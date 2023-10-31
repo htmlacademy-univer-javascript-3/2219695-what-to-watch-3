@@ -1,4 +1,4 @@
-import {SmallFilm} from '../components/small-film-card/small-film-card.type.ts';
+import {SmallFilm} from '../types/small-film.ts';
 
 export const smallFilmsCards: SmallFilm[] = [
   {
@@ -6,70 +6,70 @@ export const smallFilmsCards: SmallFilm[] = [
     previewImage: 'img/fantastic-beasts-the-crimes-of-grindelwald.jpg',
     name: 'Fantastic Beasts: The Crimes of Grindelwald',
     previewVideoLink: 'https://13.design.pages.academy/static//film/video/traffic.mp4',
-    genre: ''
+    genre: 'Fantasy'
   },
   {
     id: '2',
     previewImage: 'img/bohemian-rhapsody.jpg',
     name: 'Bohemian Rhapsody',
     previewVideoLink: 'https://13.design.pages.academy/static//film/video/dog.mp4',
-    genre: ''
+    genre: 'Drama'
   },
   {
     id: '3',
     previewImage: 'img/macbeth.jpg',
     name: 'Macbeth',
     previewVideoLink: '',
-    genre: ''
+    genre: 'Comedy'
   },
   {
     id: '4',
     previewImage: 'img/aviator.jpg',
     name: 'Aviator',
     previewVideoLink: '',
-    genre: ''
+    genre: 'Comedy'
   },
   {
     id: '5',
     previewImage: 'img/we-need-to-talk-about-kevin.jpg',
     name: 'We need to talk about Kevin',
     previewVideoLink: '',
-    genre: ''
+    genre: 'Drama'
   },
   {
     id: '6',
     previewImage: 'img/what-we-do-in-the-shadows.jpg',
     name: 'What We Do in the Shadows',
     previewVideoLink: '',
-    genre: ''
+    genre: 'Drama'
   },
   {
     id: '7',
     previewImage: 'img/revenant.jpg',
     name: 'Revenant',
     previewVideoLink: '',
-    genre: ''
+    genre: 'Drama'
   },
   {
     id: '8',
     previewImage: 'img/johnny-english.jpg',
     name: 'Johnny English',
     previewVideoLink: '',
-    genre: ''
+    genre: 'Fantasy'
   },
   {
     id: '9',
     previewImage: 'img/shutter-island.jpg',
     name: 'Shutter Island',
     previewVideoLink: '',
-    genre: ''
+    genre: 'Fantasy'
   },
   {
     id: '10',
     previewImage: 'img/pulp-fiction.jpg',
     name: 'Pulp Fiction',
     previewVideoLink: '',
-    genre: ''
+    genre: 'Fantasy'
   },
   {
     id: '11',

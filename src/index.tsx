@@ -1,12 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './components/app/app.tsx';
-import {MainPageProps} from './pages/main/main-page.props.ts';
 import {smallFilmsCards} from './mocks/small-films.ts';
 import {filmsCards} from './mocks/films.ts';
-import {FilmPageProps} from './pages/film/film-page.props.ts';
-import {PlayerPageProps} from './pages/player/player-page.props.ts';
-import {ReviewPageProps} from './pages/review/review-page.props.ts';
+import {FilmPageProps} from './pages/film/film-page.tsx';
+import {MainPageProps} from './pages/main/main-page.tsx';
+import {PlayerPageProps} from './pages/player/player-page.tsx';
+import {ReviewPageProps} from './pages/review/review-page.tsx';
 
 const mainPageProps: MainPageProps = {
   promoFilmCardProps: {
@@ -19,7 +19,8 @@ const mainPageProps: MainPageProps = {
 };
 
 const filmPageProps: FilmPageProps = {
-  filmsCards
+  filmsCards,
+  smallFilmsCards
 };
 
 const playerPageProps: PlayerPageProps = {

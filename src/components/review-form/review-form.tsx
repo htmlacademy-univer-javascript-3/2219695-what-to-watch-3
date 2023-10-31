@@ -44,7 +44,7 @@ export default function ReviewForm(): JSX.Element {
         <textarea
           className="add-review__textarea"
           name="review-text" id="review-text"
-          placeholder="Review text"
+          placeholder="ReviewData text"
           onChange={handleTextAreaOnChange}
         >
         </textarea>

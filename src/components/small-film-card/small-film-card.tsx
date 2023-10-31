@@ -1,7 +1,15 @@
 import {JSX} from 'react';
-import {SmallFilmCardProps} from './small-film-card.props.ts';
 import {Link} from 'react-router-dom';
 import VideoPlayer from '../video-player/video-player.tsx';
+
+export type SmallFilmCardProps = {
+  id: string;
+  name: string;
+  previewImage: string;
+  previewVideoLink: string;
+  isActiveCard: string;
+}
+
 
 export default function SmallFilmCard({id, previewImage, name, previewVideoLink, isActiveCard}: SmallFilmCardProps): JSX.Element {
   return (

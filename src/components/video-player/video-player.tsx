@@ -1,5 +1,10 @@
 import {JSX} from 'react';
-import {VideoPlayerProps} from './video-player.props.ts';
+
+export type VideoPlayerProps = {
+  previewVideoLink: string;
+  previewImage: string;
+}
+
 
 export default function VideoPlayer({previewVideoLink, previewImage}: VideoPlayerProps): JSX.Element {
   return (

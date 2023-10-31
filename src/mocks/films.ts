@@ -1,4 +1,4 @@
-import {Film} from '../components/film-card/film-card.type.ts';
+import {Film} from '../types/film.ts';
 
 export const filmsCards: Film[] = [
   {
