@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './components/app/app.tsx';
-import {smallFilmsCards} from './mocks/small-films.ts';
 import {filmsCards} from './mocks/films.ts';
 import {FilmPageProps} from './pages/film/film-page.tsx';
 import {MainPageProps} from './pages/main/main-page.tsx';
@@ -17,12 +16,10 @@ const mainPageProps: MainPageProps = {
     genre: 'Drama',
     date: '2014'
   },
-  smallFilmsCards,
 };
 
 const filmPageProps: FilmPageProps = {
   filmsCards,
-  smallFilmsCards
 };
 
 const playerPageProps: PlayerPageProps = {

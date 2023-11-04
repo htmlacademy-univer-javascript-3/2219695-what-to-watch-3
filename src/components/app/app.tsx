@@ -25,7 +25,7 @@ export default function App({mainPageProps, filmPageProps, playerPageProps, revi
         <Routes>
           <Route
             path={AppRoute.Main}
-            element={<MainPage promoFilmCardProps={mainPageProps.promoFilmCardProps} smallFilmsCards={mainPageProps.smallFilmsCards}/>}
+            element={<MainPage promoFilmCardProps={mainPageProps.promoFilmCardProps}/>}
           />
           <Route
             path={AppRoute.Login}
@@ -35,13 +35,13 @@ export default function App({mainPageProps, filmPageProps, playerPageProps, revi
             path={AppRoute.MyList}
             element={
               <PrivateRoute authStatus={AuthStatus.Auth}>
-                <MyListPage smallFilmsCards={mainPageProps.smallFilmsCards}/>
+                <MyListPage/>
               </PrivateRoute>
             }
           />
           <Route
             path={AppRoute.Film}
-            element={<FilmPage filmsCards={filmPageProps.filmsCards} smallFilmsCards={filmPageProps.smallFilmsCards}/>}
+            element={<FilmPage filmsCards={filmPageProps.filmsCards}/>}
           />
           <Route
             path={AppRoute.AddReview}
