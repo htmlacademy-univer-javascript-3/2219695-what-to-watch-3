@@ -7,6 +7,8 @@ import {FilmPageProps} from './pages/film/film-page.tsx';
 import {MainPageProps} from './pages/main/main-page.tsx';
 import {PlayerPageProps} from './pages/player/player-page.tsx';
 import {ReviewPageProps} from './pages/review/review-page.tsx';
+import {Provider} from 'react-redux';
+import {store} from './store';
 
 const mainPageProps: MainPageProps = {
   promoFilmCardProps: {
@@ -37,11 +39,13 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <React.StrictMode>
-    <App
-      mainPageProps={mainPageProps}
-      filmPageProps={filmPageProps}
-      playerPageProps={playerPageProps}
-      reviewPageProps={reviewPageProps}
-    />
+    <Provider store={store}>
+      <App
+        mainPageProps={mainPageProps}
+        filmPageProps={filmPageProps}
+        playerPageProps={playerPageProps}
+        reviewPageProps={reviewPageProps}
+      />
+    </Provider>
   </React.StrictMode>
 );

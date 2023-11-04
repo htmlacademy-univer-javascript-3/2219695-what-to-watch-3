@@ -28,8 +28,8 @@ export default function Details({director, starring, runTime, genre, released}: 
             {starring.map((star, index) =>
               (
                 index === starring.length - 1
-                  ? <div key={`id-${star}`}>{star}</div>
-                  : <div key={`id-${star}`}>{star}, <br/></div>
+                  ? <span key={`id-${star}`}>{star}</span>
+                  : <span key={`id-${star}`}>{star}, <br/></span>
               )
             )}
           </span>

@@ -20,14 +20,14 @@ export const smallFilmsCards: SmallFilm[] = [
     previewImage: 'img/macbeth.jpg',
     name: 'Macbeth',
     previewVideoLink: '',
-    genre: 'Comedy'
+    genre: 'Drama'
   },
   {
     id: '4',
     previewImage: 'img/aviator.jpg',
     name: 'Aviator',
     previewVideoLink: '',
-    genre: 'Comedy'
+    genre: 'Drama'
   },
   {
     id: '5',
@@ -41,104 +41,104 @@ export const smallFilmsCards: SmallFilm[] = [
     previewImage: 'img/what-we-do-in-the-shadows.jpg',
     name: 'What We Do in the Shadows',
     previewVideoLink: '',
-    genre: 'Drama'
+    genre: 'Comedy'
   },
   {
     id: '7',
     previewImage: 'img/revenant.jpg',
     name: 'Revenant',
     previewVideoLink: '',
-    genre: 'Drama'
+    genre: 'Action'
   },
   {
     id: '8',
     previewImage: 'img/johnny-english.jpg',
     name: 'Johnny English',
     previewVideoLink: '',
-    genre: 'Fantasy'
+    genre: 'Comedy'
   },
   {
     id: '9',
     previewImage: 'img/shutter-island.jpg',
     name: 'Shutter Island',
     previewVideoLink: '',
-    genre: 'Fantasy'
+    genre: 'Thriller'
   },
   {
     id: '10',
     previewImage: 'img/pulp-fiction.jpg',
     name: 'Pulp Fiction',
     previewVideoLink: '',
-    genre: 'Fantasy'
+    genre: 'Crime'
   },
   {
     id: '11',
     previewImage: 'img/no-country-for-old-men.jpg',
     name: 'No Country for Old Men',
     previewVideoLink: '',
-    genre: ''
+    genre: 'Crime'
   },
   {
     id: '12',
     previewImage: 'img/snatch.jpg',
     name: 'Snatch',
     previewVideoLink: '',
-    genre: ''
+    genre: 'Comedy'
   },
   {
     id: '13',
     previewImage: 'img/moonrise-kingdom.jpg',
     name: 'Moonrise Kingdom',
     previewVideoLink: '',
-    genre: ''
+    genre: 'Adventure'
   },
   {
     id: '14',
     previewImage: 'img/seven-years-in-tibet.jpg',
     name: 'Seven Years in Tibet',
     previewVideoLink: '',
-    genre: ''
+    genre: 'Adventure'
   },
   {
     id: '15',
     previewImage: 'img/midnight-special.jpg',
     name: 'Midnight Special',
     previewVideoLink: '',
-    genre: ''
+    genre: 'Action'
   },
   {
     id: '16',
     previewImage: 'img/war-of-the-worlds.jpg',
     name: 'War of the Worlds',
     previewVideoLink: '',
-    genre: ''
+    genre: 'Adventure'
   },
   {
     id: '17',
     previewImage: 'img/dardjeeling-limited.jpg',
     name: 'Dardjeeling Limited',
     previewVideoLink: '',
-    genre: ''
+    genre: 'Adventure'
   },
   {
     id: '18',
     previewImage: 'img/orlando.jpg',
     name: 'Orlando',
     previewVideoLink: '',
-    genre: ''
+    genre: 'Drama'
   },
   {
     id: '19',
     previewImage: 'img/mindhunter.jpg',
     name: 'Mindhunter',
     previewVideoLink: '',
-    genre: ''
+    genre: 'Crime'
   },
   {
     id: '20',
     previewImage: 'img/midnight-special.jpg',
     name: 'Midnight Special',
     previewVideoLink: '',
-    genre: ''
+    genre: 'Drama'
   }
 ];

@@ -16,10 +16,9 @@ export type TabsProps = {
   genre: string;
   released: number;
   reviews: ReviewData[];
-  backgroundColor: string;
 }
 
-export default function Tabs({rating, description, director, scoresCount, starring, runTime, genre, released, reviews, backgroundColor}: TabsProps): JSX.Element {
+export default function Tabs({rating, description, director, scoresCount, starring, runTime, genre, released, reviews}: TabsProps): JSX.Element {
   const [activeTab, setActiveTab] = useState('overview');
 
   return (
@@ -53,7 +52,6 @@ export default function Tabs({rating, description, director, scoresCount, starri
       <TabContent id="reviews" activeTab={activeTab}>
         <Reviews
           reviews={reviews}
-          backgroundColor={backgroundColor}
         />
       </TabContent>
     </div>
