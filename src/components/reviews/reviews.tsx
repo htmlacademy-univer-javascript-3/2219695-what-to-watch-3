@@ -4,10 +4,9 @@ import {ReviewData} from '../../types/reviewData.ts';
 
 export type ReviewsProps = {
   reviews: ReviewData[];
-  backgroundColor: string;
 }
 
-export default function Reviews({reviews, backgroundColor}: ReviewsProps): JSX.Element {
+export default function Reviews({reviews}: ReviewsProps): JSX.Element {
   const firstCol = reviews.slice(0, Math.ceil(reviews.length / 2));
   const secondCol = reviews.slice(Math.ceil(reviews.length / 2), reviews.length);
 
@@ -22,7 +21,6 @@ export default function Reviews({reviews, backgroundColor}: ReviewsProps): JSX.E
               user={review.user}
               comment={review.comment}
               rating={review.rating}
-              backgroundColor={backgroundColor}
             />
           )
         )}
@@ -36,7 +34,6 @@ export default function Reviews({reviews, backgroundColor}: ReviewsProps): JSX.E
               user={review.user}
               comment={review.comment}
               rating={review.rating}
-              backgroundColor={backgroundColor}
             />
           )
         )}

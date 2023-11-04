@@ -111,7 +111,6 @@ export default function FilmPage({filmsCards, smallFilmsCards}: FilmPageProps): 
                   genre={film.genre}
                   released={film.released}
                   reviews={filmReviews}
-                  backgroundColor={film.backgroundColor}
                 />
               </div>
             </div>

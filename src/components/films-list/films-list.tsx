@@ -25,7 +25,7 @@ export default function FilmsList({smallFilmCards, genre, filmId}: FilmsListProp
 
   return (
     <div className="catalog__films-list">
-      {genre === undefined ? smallFilmCards
+      {genre === undefined || genre === 'All genres' ? smallFilmCards
         .map((film: SmallFilm) =>
           (
             <article
@@ -66,28 +66,4 @@ export default function FilmsList({smallFilmCards, genre, filmId}: FilmsListProp
           )}
     </div>
   );
-
-  // return (
-  //   <div className="catalog__films-list">
-  //     {smallFilmCards
-  //       .map((film: SmallFilm) =>
-  //         (
-  //           <article
-  //             className="small-film-card catalog__films-card"
-  //             key={film.id}
-  //             onMouseOver={() => handleArticleMouseOver(film.id)}
-  //             onMouseLeave={handleArticleMouseLeave}
-  //           >
-  //             <SmallFilmCard
-  //               id={film.id}
-  //               previewImage={film.previewImage}
-  //               name={film.name}
-  //               previewVideoLink={film.previewVideoLink}
-  //               isActiveCard={idActiveCard}
-  //             />
-  //           </article>
-  //         )
-  //       )}
-  //   </div>
-  // );
 }
