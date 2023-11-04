@@ -4,13 +4,8 @@ import FilmsList from '../../components/films-list/films-list.tsx';
 import {Link} from 'react-router-dom';
 import {AppRoute} from '../../components/app/const.ts';
 import Footer from '../../components/footer/footer.tsx';
-import {SmallFilm} from '../../types/small-film.ts';
 
-export type MyListPageProps = {
-  smallFilmsCards: SmallFilm[];
-}
-
-export default function MyListPage({smallFilmsCards}: MyListPageProps): JSX.Element {
+export default function MyListPage(): JSX.Element {
   return (
     <>
       <Helmet>
@@ -41,7 +36,7 @@ export default function MyListPage({smallFilmsCards}: MyListPageProps): JSX.Elem
 
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
-          <FilmsList smallFilmCards={smallFilmsCards.slice(0, 9)}/>
+          <FilmsList/>
         </section>
 
         <Footer/>

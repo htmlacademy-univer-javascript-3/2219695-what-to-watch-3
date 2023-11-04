@@ -9,14 +9,12 @@ import Tabs from '../../components/tabs/tabs.tsx';
 import {ReviewData} from '../../types/reviewData.ts';
 import {reviews} from '../../mocks/reviews.ts';
 import FilmsList from '../../components/films-list/films-list.tsx';
-import {SmallFilm} from '../../types/small-film.ts';
 
 export type FilmPageProps = {
   filmsCards: Film[];
-  smallFilmsCards: SmallFilm[];
 }
 
-export default function FilmPage({filmsCards, smallFilmsCards}: FilmPageProps): JSX.Element {
+export default function FilmPage({filmsCards}: FilmPageProps): JSX.Element {
   const {id} = useParams();
   const film: Film | undefined = filmsCards.find((filmCard: Film) => filmCard.id === id);
   const filmReviews: ReviewData[] = reviews;
@@ -118,7 +116,7 @@ export default function FilmPage({filmsCards, smallFilmsCards}: FilmPageProps): 
           <div className="page-content">
             <section className="catalog catalog--like-this">
               <h2 className="catalog__title">More like this</h2>
-              <FilmsList smallFilmCards={smallFilmsCards} genre={film.genre} filmId={film.id}/>
+              <FilmsList genre={film.genre} filmId={film.id}/>
             </section>
 
             <Footer/>
