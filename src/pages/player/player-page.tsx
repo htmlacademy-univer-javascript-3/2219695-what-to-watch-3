@@ -1,15 +1,10 @@
 import {JSX} from 'react';
 import {Helmet} from 'react-helmet-async';
-import {Navigate, useParams} from 'react-router-dom';
-import {Film} from '../../types/film.ts';
+import {Navigate} from 'react-router-dom';
+import {useAppSelector} from '../../hooks';
 
-export type PlayerPageProps = {
-  filmsCards: Film[];
-}
-
-export default function PlayerPage({filmsCards}: PlayerPageProps): JSX.Element {
-  const {id} = useParams();
-  const film: Film | undefined = filmsCards.find((filmCard: Film) => filmCard.id === id);
+export default function PlayerPage(): JSX.Element {
+  const film = useAppSelector((state) => state.detailsFilm);
 
   return (
     <div>

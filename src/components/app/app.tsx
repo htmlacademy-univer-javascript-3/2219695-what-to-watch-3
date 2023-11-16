@@ -1,27 +1,37 @@
 import MainPage, {MainPageProps} from '../../pages/main/main-page.tsx';
 import {JSX} from 'react';
-import {BrowserRouter, Route, Routes} from 'react-router-dom';
+import {Route, Routes} from 'react-router-dom';
 import {AppRoute, AuthStatus} from './const.ts';
 import LoginPage from '../../pages/login/login-page.tsx';
-import FilmPage, {FilmPageProps} from '../../pages/film/film-page.tsx';
-import ReviewPage, {ReviewPageProps} from '../../pages/review/review-page.tsx';
-import PlayerPage, {PlayerPageProps} from '../../pages/player/player-page.tsx';
+import FilmPage from '../../pages/film/film-page.tsx';
+import ReviewPage from '../../pages/review/review-page.tsx';
+import PlayerPage from '../../pages/player/player-page.tsx';
 import NotFoundPage from '../../pages/not-found/not-found-page.tsx';
 import PrivateRoute from '../private-route/private-route.tsx';
 import MyListPage from '../../pages/my-list/my-list-page.tsx';
 import {HelmetProvider} from 'react-helmet-async';
+import {useAppSelector} from '../../hooks';
+import LoadingPage from '../../pages/loading/loading-page.tsx';
+import HistoryRouter from '../history-route/history-route.tsx';
+import browserHistory from '../../browser-history.ts';
 
 export type AppProps = {
   mainPageProps: MainPageProps;
-  filmPageProps: FilmPageProps;
-  playerPageProps: PlayerPageProps;
-  reviewPageProps: ReviewPageProps;
 }
 
-export default function App({mainPageProps, filmPageProps, playerPageProps, reviewPageProps}: AppProps): JSX.Element {
+export default function App({mainPageProps}: AppProps): JSX.Element {
+  const authStatus = useAppSelector((state) => state.authStatus);
+  const isFilmsDataLoading = useAppSelector((state) => state.isFilmsDataLoading);
+
+  if (authStatus === AuthStatus.Unknown || isFilmsDataLoading) {
+    return (
+      <LoadingPage/>
+    );
+  }
+
   return (
     <HelmetProvider>
-      <BrowserRouter>
+      <HistoryRouter history={browserHistory}>
         <Routes>
           <Route
             path={AppRoute.Main}
@@ -34,29 +44,29 @@ export default function App({mainPageProps, filmPageProps, playerPageProps, revi
           <Route
             path={AppRoute.MyList}
             element={
-              <PrivateRoute authStatus={AuthStatus.Auth}>
+              <PrivateRoute authStatus={authStatus}>
                 <MyListPage/>
               </PrivateRoute>
             }
           />
           <Route
             path={AppRoute.Film}
-            element={<FilmPage filmsCards={filmPageProps.filmsCards}/>}
+            element={<FilmPage/>}
           />
           <Route
             path={AppRoute.AddReview}
-            element={<ReviewPage filmsCards={reviewPageProps.filmsCards}/>}
+            element={<ReviewPage/>}
           />
           <Route
             path={AppRoute.Player}
-            element={<PlayerPage filmsCards={playerPageProps.filmsCards}/>}
+            element={<PlayerPage/>}
           />
           <Route
             path={'*'}
             element={<NotFoundPage/>}
           />
         </Routes>
-      </BrowserRouter>
+      </HistoryRouter>
     </HelmetProvider>
   );
 }

@@ -1,13 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './components/app/app.tsx';
-import {filmsCards} from './mocks/films.ts';
-import {FilmPageProps} from './pages/film/film-page.tsx';
 import {MainPageProps} from './pages/main/main-page.tsx';
-import {PlayerPageProps} from './pages/player/player-page.tsx';
-import {ReviewPageProps} from './pages/review/review-page.tsx';
 import {Provider} from 'react-redux';
 import {store} from './store';
+import {checkAuthAction, fetchFilmsAction} from './store/api-actions.ts';
 
 const mainPageProps: MainPageProps = {
   promoFilmCardProps: {
@@ -18,17 +15,8 @@ const mainPageProps: MainPageProps = {
   },
 };
 
-const filmPageProps: FilmPageProps = {
-  filmsCards,
-};
-
-const playerPageProps: PlayerPageProps = {
-  filmsCards
-};
-
-const reviewPageProps: ReviewPageProps = {
-  filmsCards
-};
+store.dispatch(fetchFilmsAction());
+store.dispatch(checkAuthAction());
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -37,11 +25,9 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <Provider store={store}>
+      {/*<ToastContainer/>  TODO:Разобраться почему получаю ошибку*/}
       <App
         mainPageProps={mainPageProps}
-        filmPageProps={filmPageProps}
-        playerPageProps={playerPageProps}
-        reviewPageProps={reviewPageProps}
       />
     </Provider>
   </React.StrictMode>

@@ -1,24 +1,28 @@
-import {JSX} from 'react';
+import {JSX, useEffect} from 'react';
 import {Helmet} from 'react-helmet-async';
 import {Link, Navigate, useNavigate, useParams} from 'react-router-dom';
-import {AppRoute} from '../../components/app/const.ts';
 import Footer from '../../components/footer/footer.tsx';
-
-import {Film} from '../../types/film.ts';
 import Tabs from '../../components/tabs/tabs.tsx';
-import {ReviewData} from '../../types/reviewData.ts';
-import {reviews} from '../../mocks/reviews.ts';
 import FilmsList from '../../components/films-list/films-list.tsx';
+import Header from '../../components/header/header.tsx';
+import {useAppDispatch, useAppSelector} from '../../hooks';
+import {fetchDetailsFilmAction, fetchReviewsAction} from '../../store/api-actions.ts';
+import {AuthStatus} from '../../components/app/const.ts';
 
-export type FilmPageProps = {
-  filmsCards: Film[];
-}
-
-export default function FilmPage({filmsCards}: FilmPageProps): JSX.Element {
+export default function FilmPage(): JSX.Element {
   const {id} = useParams();
-  const film: Film | undefined = filmsCards.find((filmCard: Film) => filmCard.id === id);
-  const filmReviews: ReviewData[] = reviews;
+  const dispatch = useAppDispatch();
+  const film = useAppSelector((state) => state.detailsFilm);
+  const filmReviews = useAppSelector((state) => state.reviews);
+  const isLogin = useAppSelector((state) => state.authStatus === AuthStatus.Auth);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (id) {
+      dispatch(fetchDetailsFilmAction({filmId: id}));
+      dispatch(fetchReviewsAction({filmId: id}));
+    }
+  }, [dispatch, id]);
 
   return (
     <div>
@@ -35,26 +39,7 @@ export default function FilmPage({filmsCards}: FilmPageProps): JSX.Element {
 
               <h1 className="visually-hidden">WTW</h1>
 
-              <header className="page-header film-card__head">
-                <div className="logo">
-                  <Link to={AppRoute.Main} className="logo__link">
-                    <span className="logo__letter logo__letter--1">W</span>
-                    <span className="logo__letter logo__letter--2">T</span>
-                    <span className="logo__letter logo__letter--3">W</span>
-                  </Link>
-                </div>
-
-                <ul className="user-block">
-                  <li className="user-block__item">
-                    <div className="user-block__avatar">
-                      <img src="img/avatar.jpg" alt="User avatar" width="63" height="63"/>
-                    </div>
-                  </li>
-                  <li className="user-block__item">
-                    <a className="user-block__link">Sign out</a>
-                  </li>
-                </ul>
-              </header>
+              <Header/>
 
               <div className="film-card__wrap">
                 <div className="film-card__desc">
@@ -86,7 +71,7 @@ export default function FilmPage({filmsCards}: FilmPageProps): JSX.Element {
                       <span>My list</span>
                       <span className="film-card__count">9</span>
                     </button>
-                    <Link to={`/films/${film.id}/review`} className="btn film-card__button">Add review</Link>
+                    {isLogin && <Link to={`/films/${film.id}/review`} className="btn film-card__button">Add review</Link>}
                   </div>
                 </div>
               </div>

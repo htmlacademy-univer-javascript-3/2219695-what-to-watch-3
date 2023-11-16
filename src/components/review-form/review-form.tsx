@@ -1,16 +1,17 @@
 import {ChangeEvent, JSX, useState} from 'react';
+import {addReviewAction} from '../../store/api-actions.ts';
+import {useAppDispatch} from '../../hooks';
 
 const RATING_VALUES: number[] = [10, 9, 8, 7, 6, 5, 4, 3, 2, 1];
 
-export default function ReviewForm(): JSX.Element {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars,@typescript-eslint/ban-ts-comment
-  // @ts-ignore
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+export type ReviewFormProps = {
+  filmId: string;
+}
+
+export default function ReviewForm({filmId}: ReviewFormProps): JSX.Element {
   const [rating, setRating] = useState('');
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars,@typescript-eslint/ban-ts-comment
-  // @ts-ignore
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [reviewText, setReviewText] = useState('');
+  const dispatch = useAppDispatch();
 
   const handleInputOnChange = (e: ChangeEvent<HTMLInputElement>) => {
     setRating(e.target.value);
@@ -18,6 +19,16 @@ export default function ReviewForm(): JSX.Element {
 
   const handleTextAreaOnChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setReviewText(e.target.value);
+  };
+
+  const handleSubmit = () => {
+    if (rating !== '' && reviewText !== '') {
+      dispatch(addReviewAction({
+        filmId,
+        comment: reviewText,
+        rating: Number(rating)
+      }));
+    }
   };
 
   return (
@@ -49,7 +60,7 @@ export default function ReviewForm(): JSX.Element {
         >
         </textarea>
         <div className="add-review__submit">
-          <button className="add-review__btn" type="submit">Post</button>
+          <button onClick={handleSubmit} className="add-review__btn" type="button">Post</button>
         </div>
       </div>
     </form>
