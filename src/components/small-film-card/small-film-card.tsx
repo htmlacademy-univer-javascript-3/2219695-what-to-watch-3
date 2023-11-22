@@ -1,6 +1,8 @@
 import {JSX} from 'react';
 import {Link} from 'react-router-dom';
 import VideoPlayer from '../video-player/video-player.tsx';
+import {useAppDispatch} from '../../hooks';
+import {fetchDetailsFilmAction, fetchReviewsAction} from '../../store/api-actions.ts';
 
 export type SmallFilmCardProps = {
   id: string;
@@ -12,6 +14,13 @@ export type SmallFilmCardProps = {
 
 
 export default function SmallFilmCard({id, previewImage, name, previewVideoLink, isActiveCard}: SmallFilmCardProps): JSX.Element {
+  const dispatch = useAppDispatch();
+
+  const loadDetailsFilmData = () => {
+    dispatch(fetchDetailsFilmAction({filmId: id}));
+    dispatch(fetchReviewsAction({filmId: id}));
+  };
+
   return (
     <>
       <div className="small-film-card__image">
@@ -20,7 +29,7 @@ export default function SmallFilmCard({id, previewImage, name, previewVideoLink,
           : <img src={previewImage} alt={name} width="280" height="175"/>}
       </div>
       <h3 className="small-film-card__title">
-        <Link className="small-film-card__link" to={`/films/${id}`}>{name}</Link>
+        <Link onClick={loadDetailsFilmData} className="small-film-card__link" to={`/films/${id}`}>{name}</Link>
       </h3>
     </>
   );

@@ -1,28 +1,26 @@
-import {JSX, useEffect} from 'react';
+import {JSX} from 'react';
 import {Helmet} from 'react-helmet-async';
-import {Link, Navigate, useNavigate, useParams} from 'react-router-dom';
+import {Link, Navigate, useNavigate} from 'react-router-dom';
 import Footer from '../../components/footer/footer.tsx';
 import Tabs from '../../components/tabs/tabs.tsx';
 import FilmsList from '../../components/films-list/films-list.tsx';
 import Header from '../../components/header/header.tsx';
-import {useAppDispatch, useAppSelector} from '../../hooks';
-import {fetchDetailsFilmAction, fetchReviewsAction} from '../../store/api-actions.ts';
+import {useAppSelector} from '../../hooks';
 import {AuthStatus} from '../../components/app/const.ts';
+import LoadingPage from '../loading/loading-page.tsx';
 
 export default function FilmPage(): JSX.Element {
-  const {id} = useParams();
-  const dispatch = useAppDispatch();
   const film = useAppSelector((state) => state.detailsFilm);
   const filmReviews = useAppSelector((state) => state.reviews);
   const isLogin = useAppSelector((state) => state.authStatus === AuthStatus.Auth);
+  const isDetailsFilmDataLoading = useAppSelector((state) => state.isDetailsFilmDataLoading);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (id) {
-      dispatch(fetchDetailsFilmAction({filmId: id}));
-      dispatch(fetchReviewsAction({filmId: id}));
-    }
-  }, [dispatch, id]);
+  if (isDetailsFilmDataLoading) {
+    return (
+      <LoadingPage/>
+    );
+  }
 
   return (
     <div>

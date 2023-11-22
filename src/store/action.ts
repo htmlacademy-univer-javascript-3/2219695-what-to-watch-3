@@ -12,6 +12,8 @@ export const loadReviews = createAction<ReviewData[]>('data/loadReviews');
 export const loadSimilarFilms = createAction<SmallFilm[]>('data/loadSimilarFilms');
 export const requireAuth = createAction<AuthStatus>('user/requireAuth');
 export const setFilmsDataLoadingStatus = createAction<boolean>('data/setFilmsDataLoadingStatus');
+export const setDetailsFilmDataLoadingStatus = createAction<boolean>('data/setDetailsFilmDataLoadingStatus');
+export const setReviewsDataLoadingStatus = createAction<boolean>('data/setReviewsDataLoadingStatus');
 export const redirectToRoute = createAction<AppRoute>('wtw/redirectToRoute');
 
 export const addReview = createAction<ReviewData>('data/addReview');

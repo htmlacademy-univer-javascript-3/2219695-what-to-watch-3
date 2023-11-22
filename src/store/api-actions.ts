@@ -9,8 +9,8 @@ import {
   loadFilms,
   loadReviews, loadSimilarFilms,
   redirectToRoute,
-  requireAuth,
-  setFilmsDataLoadingStatus
+  requireAuth, setDetailsFilmDataLoadingStatus,
+  setFilmsDataLoadingStatus, setReviewsDataLoadingStatus
 } from './action.ts';
 import {AuthData} from '../types/auth-data.ts';
 import {UserData} from '../types/user-data.ts';
@@ -40,7 +40,9 @@ export const fetchDetailsFilmAction = createAsyncThunk<void, {filmId: string}, {
 }>(
   'data/fetchDetailsFilm',
   async ({filmId}, {dispatch, extra: api}) => {
+    dispatch(setDetailsFilmDataLoadingStatus(true));
     const {data} = await api.get<Film>(`${APIRoute.Films}/${filmId}`);
+    dispatch(setDetailsFilmDataLoadingStatus(false));
     dispatch(loadDetailsFilm(data));
   },
 );
@@ -52,7 +54,9 @@ export const fetchReviewsAction = createAsyncThunk<void, {filmId: string}, {
 }>(
   'data/fetchReviews',
   async ({filmId}, {dispatch, extra: api}) => {
+    dispatch(setReviewsDataLoadingStatus(true));
     const {data} = await api.get<ReviewData[]>(`${APIRoute.COMMENTS}/${filmId}`);
+    dispatch(setReviewsDataLoadingStatus(false));
     dispatch(loadReviews(data));
   },
 );
