@@ -5,9 +5,9 @@ import {
   loadFilms,
   loadReviews,
   loadSimilarFilms,
-  requireAuth,
+  requireAuth, setDetailsFilmDataLoadingStatus,
   setFilmsDataLoadingStatus,
-  setGenre
+  setGenre, setReviewsDataLoadingStatus
 } from './action.ts';
 import {SmallFilm} from '../types/small-film.ts';
 import {Genre} from '../types/genre.ts';
@@ -20,6 +20,8 @@ type InitialState = {
   films: SmallFilm[];
   authStatus: AuthStatus;
   isFilmsDataLoading: boolean;
+  isDetailsFilmDataLoading: boolean;
+  isReviewsDataLoading: boolean;
   detailsFilm: Film | undefined;
   reviews: ReviewData[];
   similarFilms: SmallFilm[];
@@ -30,6 +32,8 @@ const initialState: InitialState = {
   films: [],
   authStatus: AuthStatus.Unknown,
   isFilmsDataLoading: false,
+  isDetailsFilmDataLoading: false,
+  isReviewsDataLoading: false,
   detailsFilm: undefined,
   reviews: [],
   similarFilms: [],
@@ -57,6 +61,12 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setFilmsDataLoadingStatus, (state, action) => {
       state.isFilmsDataLoading = action.payload;
+    })
+    .addCase(setDetailsFilmDataLoadingStatus, (state, action) => {
+      state.isDetailsFilmDataLoading = action.payload;
+    })
+    .addCase(setReviewsDataLoadingStatus, (state, action) => {
+      state.isReviewsDataLoading = action.payload;
     })
     .addCase(addReview, (state, action) => {
       state.reviews.push(action.payload);

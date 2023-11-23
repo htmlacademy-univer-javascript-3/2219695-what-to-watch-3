@@ -5,6 +5,7 @@ import {MainPageProps} from './pages/main/main-page.tsx';
 import {Provider} from 'react-redux';
 import {store} from './store';
 import {checkAuthAction, fetchFilmsAction} from './store/api-actions.ts';
+import {ToastContainer} from 'react-toastify';
 
 const mainPageProps: MainPageProps = {
   promoFilmCardProps: {
@@ -25,7 +26,7 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      {/*<ToastContainer/>  TODO:Разобраться почему получаю ошибку*/}
+      <ToastContainer/>
       <App
         mainPageProps={mainPageProps}
       />

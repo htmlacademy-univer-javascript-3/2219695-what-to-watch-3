@@ -56,6 +56,7 @@ export default function LoginPage(): JSX.Element {
                   placeholder="Email address"
                   name="user-email"
                   id="user-email"
+                  required
                 />
                 <label className="sign-in__label visually-hidden" htmlFor="user-email">Email address</label>
               </div>
@@ -68,6 +69,7 @@ export default function LoginPage(): JSX.Element {
                   placeholder="Password"
                   name="user-password"
                   id="user-password"
+                  required
                 />
                 <label className="sign-in__label visually-hidden" htmlFor="user-password">Password</label>
               </div>

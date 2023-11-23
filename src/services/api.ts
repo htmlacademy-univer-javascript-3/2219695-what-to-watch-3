@@ -2,6 +2,7 @@ import axios, {AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse} fro
 import {getToken} from './token.ts';
 import {StatusCodes} from 'http-status-codes';
 import {toast} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 type DetailMessageType = {
   type: string;
