@@ -6,16 +6,18 @@ export type PromoFilmCardProps = {
   id: string;
   name: string;
   genre: string;
-  date: string;
+  released: number;
+  backgroundImage: string;
+  posterImage: string;
 }
 
-export default function PromoFilmCard({id, name, genre, date}: PromoFilmCardProps): JSX.Element {
+export default function PromoFilmCard({id, name, genre, released, backgroundImage, posterImage}: PromoFilmCardProps): JSX.Element {
   const navigate = useNavigate();
 
   return (
     <section className="film-card">
       <div className="film-card__bg">
-        <img src="img/bg-the-grand-budapest-hotel.jpg" alt="The Grand Budapest Hotel"/>
+        <img src={backgroundImage} alt={name}/>
       </div>
 
       <h1 className="visually-hidden">WTW</h1>
@@ -25,7 +27,7 @@ export default function PromoFilmCard({id, name, genre, date}: PromoFilmCardProp
       <div className="film-card__wrap">
         <div className="film-card__info">
           <div className="film-card__poster">
-            <img src="img/the-grand-budapest-hotel-poster.jpg" alt="The Grand Budapest Hotel poster" width="218"
+            <img src={posterImage} alt={name} width="218"
               height="327"
             />
           </div>
@@ -34,7 +36,7 @@ export default function PromoFilmCard({id, name, genre, date}: PromoFilmCardProp
             <h2 className="film-card__title">{name}</h2>
             <p className="film-card__meta">
               <span className="film-card__genre">{genre}</span>
-              <span className="film-card__year">{date}</span>
+              <span className="film-card__year">{released}</span>
             </p>
 
             <div className="film-card__buttons">

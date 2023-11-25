@@ -4,6 +4,7 @@ import SmallFilmCard from '../small-film-card/small-film-card.tsx';
 import ShowMoreButton from '../show-more-button/show-more-button.tsx';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import {fetchSimilarFilmsAction} from '../../store/api-actions.ts';
+import {getFilms, getSimilarFilms} from '../../store/wtw-data/wtw-data.selectors.ts';
 
 const MAX_SHOW_FILMS = 8;
 
@@ -16,9 +17,11 @@ export default function FilmsList({genre = 'All genres', filmId}: FilmsListProps
   const [idActiveCard, setIdActiveCard] = useState<string>('');
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
   const [end, setEnd] = useState(MAX_SHOW_FILMS);
-  const films = useAppSelector((state) => state.films);
   const dispatch = useAppDispatch();
-  const filmsByGenre = useAppSelector((state) => state.similarFilms);
+  const films = useAppSelector(getFilms);
+  // const filmsByGenre = useAppSelector((state) => genre === 'All genres' ? state.films : state.films.filter((film) => (film.genre === genre)));
+  const filmsByGenre = genre === 'All genres' ? films : films.filter((film) => (film.genre === genre));
+  const similarFilms = useAppSelector(getSimilarFilms);
 
   useEffect(() => {
     if (filmId) {
@@ -39,6 +42,44 @@ export default function FilmsList({genre = 'All genres', filmId}: FilmsListProps
 
   function handleShowMoreClick() {
     setEnd((prev) => prev + MAX_SHOW_FILMS);
+  }
+
+  if (filmId !== undefined) {
+    return (
+      <>
+        <div className="catalog__films-list">
+          {similarFilms
+            .slice(0, end)
+            .map((film: SmallFilm) =>
+              (
+                <article
+                  className="small-film-card catalog__films-card"
+                  key={film.id}
+                  onMouseOver={() => handleArticleMouseOver(film.id)}
+                  onMouseLeave={handleArticleMouseLeave}
+                >
+                  <SmallFilmCard
+                    id={film.id}
+                    previewImage={film.previewImage}
+                    name={film.name}
+                    previewVideoLink={film.previewVideoLink}
+                    isActiveCard={idActiveCard}
+                  />
+                </article>
+              )
+            )}
+        </div>
+        {
+          similarFilms.slice(0, end).length > end - 1 &&
+          <div
+            className="catalog__more"
+            onClick={handleShowMoreClick}
+          >
+            <ShowMoreButton/>
+          </div>
+        }
+      </>
+    );
   }
 
   return (

@@ -1,7 +1,7 @@
-import MainPage, {MainPageProps} from '../../pages/main/main-page.tsx';
+import MainPage from '../../pages/main/main-page.tsx';
 import {JSX} from 'react';
 import {Route, Routes} from 'react-router-dom';
-import {AppRoute, AuthStatus} from './const.ts';
+import {AppRoute} from './const.ts';
 import LoginPage from '../../pages/login/login-page.tsx';
 import FilmPage from '../../pages/film/film-page.tsx';
 import ReviewPage from '../../pages/review/review-page.tsx';
@@ -14,16 +14,15 @@ import {useAppSelector} from '../../hooks';
 import LoadingPage from '../../pages/loading/loading-page.tsx';
 import HistoryRouter from '../history-route/history-route.tsx';
 import browserHistory from '../../browser-history.ts';
+import {getAuthCheckedStatus, getAuthStatus} from '../../store/user-process/user-process.selectors.ts';
+import {getFilmsDataLoadingStatus} from '../../store/wtw-data/wtw-data.selectors.ts';
 
-export type AppProps = {
-  mainPageProps: MainPageProps;
-}
+export default function App(): JSX.Element {
+  const authStatus = useAppSelector(getAuthStatus);
+  const isAuthChecked = useAppSelector(getAuthCheckedStatus);
+  const isFilmsDataLoading = useAppSelector(getFilmsDataLoadingStatus);
 
-export default function App({mainPageProps}: AppProps): JSX.Element {
-  const authStatus = useAppSelector((state) => state.authStatus);
-  const isFilmsDataLoading = useAppSelector((state) => state.isFilmsDataLoading);
-
-  if (authStatus === AuthStatus.Unknown || isFilmsDataLoading) {
+  if (!isAuthChecked || isFilmsDataLoading) {
     return (
       <LoadingPage/>
     );
@@ -35,7 +34,7 @@ export default function App({mainPageProps}: AppProps): JSX.Element {
         <Routes>
           <Route
             path={AppRoute.Main}
-            element={<MainPage promoFilmCardProps={mainPageProps.promoFilmCardProps}/>}
+            element={<MainPage/>}
           />
           <Route
             path={AppRoute.Login}
