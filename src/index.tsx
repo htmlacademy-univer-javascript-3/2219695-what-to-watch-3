@@ -1,20 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './components/app/app.tsx';
-import {MainPageProps} from './pages/main/main-page.tsx';
 import {Provider} from 'react-redux';
 import {store} from './store';
 import {checkAuthAction, fetchFilmsAction} from './store/api-actions.ts';
 import {ToastContainer} from 'react-toastify';
-
-const mainPageProps: MainPageProps = {
-  promoFilmCardProps: {
-    id: '123',
-    name: 'The Grand Budapest Hotel',
-    genre: 'Drama',
-    date: '2014'
-  },
-};
 
 store.dispatch(fetchFilmsAction());
 store.dispatch(checkAuthAction());
@@ -27,9 +17,7 @@ root.render(
   <React.StrictMode>
     <Provider store={store}>
       <ToastContainer/>
-      <App
-        mainPageProps={mainPageProps}
-      />
+      <App/>
     </Provider>
   </React.StrictMode>
 );

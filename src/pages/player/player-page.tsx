@@ -2,9 +2,10 @@ import {JSX} from 'react';
 import {Helmet} from 'react-helmet-async';
 import {Navigate} from 'react-router-dom';
 import {useAppSelector} from '../../hooks';
+import {getDetailsFilm} from '../../store/wtw-data/wtw-data.selectors.ts';
 
 export default function PlayerPage(): JSX.Element {
-  const film = useAppSelector((state) => state.detailsFilm);
+  const film = useAppSelector(getDetailsFilm);
 
   return (
     <div>

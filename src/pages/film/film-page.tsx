@@ -6,14 +6,15 @@ import Tabs from '../../components/tabs/tabs.tsx';
 import FilmsList from '../../components/films-list/films-list.tsx';
 import Header from '../../components/header/header.tsx';
 import {useAppSelector} from '../../hooks';
-import {AuthStatus} from '../../components/app/const.ts';
 import LoadingPage from '../loading/loading-page.tsx';
+import {getDetailsFilm, getDetailsFilmDataLoadingStatus, getReviews} from '../../store/wtw-data/wtw-data.selectors.ts';
+import {getCheckedLogin} from '../../store/user-process/user-process.selectors.ts';
 
 export default function FilmPage(): JSX.Element {
-  const film = useAppSelector((state) => state.detailsFilm);
-  const filmReviews = useAppSelector((state) => state.reviews);
-  const isLogin = useAppSelector((state) => state.authStatus === AuthStatus.Auth);
-  const isDetailsFilmDataLoading = useAppSelector((state) => state.isDetailsFilmDataLoading);
+  const film = useAppSelector(getDetailsFilm);
+  const filmReviews = useAppSelector(getReviews);
+  const isLogin = useAppSelector(getCheckedLogin);
+  const isDetailsFilmDataLoading = useAppSelector(getDetailsFilmDataLoadingStatus);
   const navigate = useNavigate();
 
   if (isDetailsFilmDataLoading) {

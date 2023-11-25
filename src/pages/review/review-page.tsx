@@ -4,9 +4,10 @@ import {Navigate} from 'react-router-dom';
 import ReviewForm from '../../components/review-form/review-form.tsx';
 import Header from '../../components/header/header.tsx';
 import {useAppSelector} from '../../hooks';
+import {getDetailsFilm} from '../../store/wtw-data/wtw-data.selectors.ts';
 
 export default function ReviewPage(): JSX.Element {
-  const film = useAppSelector((state) => state.detailsFilm);
+  const film = useAppSelector(getDetailsFilm);
   return (
     <div>
       {film !== undefined ?
