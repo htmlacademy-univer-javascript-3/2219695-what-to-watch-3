@@ -25,6 +25,8 @@ export type WtwData = {
   isSimilarFilmsDataLoading: boolean;
   promoFilm: PromoFilm | undefined;
   isPromoFilmDataLoading: boolean;
+  favourites: SmallFilm[];
+  isFavouritesDataLoading: boolean;
 };
 
 export type State = ReturnType<typeof store.getState>;

@@ -1,10 +1,15 @@
 import {JSX} from 'react';
 import {Helmet} from 'react-helmet-async';
-import FilmsList from '../../components/films-list/films-list.tsx';
 import Footer from '../../components/footer/footer.tsx';
 import Header from '../../components/header/header.tsx';
+import FavouritesList from '../../components/favourites-list/favourites-list.tsx';
+import {SmallFilm} from '../../types/small-film.ts';
 
-export default function MyListPage(): JSX.Element {
+export type MyListPageProps = {
+  favourites: SmallFilm[];
+}
+
+export default function MyListPage({favourites}: MyListPageProps): JSX.Element {
   return (
     <>
       <Helmet>
@@ -15,7 +20,7 @@ export default function MyListPage(): JSX.Element {
 
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
-          <FilmsList/>
+          <FavouritesList favourites={favourites}/>
         </section>
 
         <Footer/>

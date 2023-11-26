@@ -1,19 +1,40 @@
-import {JSX} from 'react';
+import {JSX, useEffect} from 'react';
 import PromoFilmCard from '../../components/promo-film-card/promo-film-card.tsx';
 import {Helmet} from 'react-helmet-async';
 import FilmsList from '../../components/films-list/films-list.tsx';
 import GenresList from '../../components/genres-list/genres-list.tsx';
-import {useAppSelector} from '../../hooks';
+import {useAppDispatch, useAppSelector} from '../../hooks';
 import {Genre} from '../../types/genre.ts';
 import Footer from '../../components/footer/footer.tsx';
 import {getGenre} from '../../store/wtw-process/wtw-process.selectors.ts';
-import {getGenres, getPromoFilm} from '../../store/wtw-data/wtw-data.selectors.ts';
+import {getGenres, getPromoFilm, getPromoFilmDataLoadingStatus} from '../../store/wtw-data/wtw-data.selectors.ts';
 import HeaderGuest from '../../components/header-guest/header-guest.tsx';
+import {getCheckedLogin} from '../../store/user-process/user-process.selectors.ts';
+import LoadingPage from '../loading/loading-page.tsx';
+import {fetchPromoFilmAction} from '../../store/api-actions.ts';
+import {SmallFilm} from '../../types/small-film.ts';
 
-export default function MainPage(): JSX.Element {
+export type MainPageProps = {
+  favourites: SmallFilm[];
+}
+
+export default function MainPage({favourites}: MainPageProps): JSX.Element {
+  const dispatch = useAppDispatch();
   const genres: Genre[] = useAppSelector(getGenres);
   const activeGenre: Genre = useAppSelector(getGenre);
   const promoFilm = useAppSelector(getPromoFilm);
+  const isPromoFilmDataLoading = useAppSelector(getPromoFilmDataLoadingStatus);
+  const isLogin = useAppSelector(getCheckedLogin);
+
+  useEffect(() => {
+    dispatch(fetchPromoFilmAction());
+  }, [dispatch]);
+
+  if (isPromoFilmDataLoading) {
+    return (
+      <LoadingPage/>
+    );
+  }
 
   return (
     <>
@@ -22,7 +43,7 @@ export default function MainPage(): JSX.Element {
       </Helmet>
 
       {
-        promoFilm ?
+        promoFilm && isLogin ?
           <PromoFilmCard
             id={promoFilm.id}
             name={promoFilm.name}
@@ -30,6 +51,7 @@ export default function MainPage(): JSX.Element {
             released={promoFilm.released}
             backgroundImage={promoFilm.backgroundImage}
             posterImage={promoFilm.posterImage}
+            favourites={favourites}
           />
           : <HeaderGuest/>
       }

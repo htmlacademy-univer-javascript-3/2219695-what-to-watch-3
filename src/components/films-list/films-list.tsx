@@ -19,7 +19,6 @@ export default function FilmsList({genre = 'All genres', filmId}: FilmsListProps
   const [end, setEnd] = useState(MAX_SHOW_FILMS);
   const dispatch = useAppDispatch();
   const films = useAppSelector(getFilms);
-  // const filmsByGenre = useAppSelector((state) => genre === 'All genres' ? state.films : state.films.filter((film) => (film.genre === genre)));
   const filmsByGenre = genre === 'All genres' ? films : films.filter((film) => (film.genre === genre));
   const similarFilms = useAppSelector(getSimilarFilms);
 
