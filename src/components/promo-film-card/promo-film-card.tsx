@@ -1,6 +1,9 @@
-import {JSX} from 'react';
+import {JSX, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import Header from '../header/header.tsx';
+import {SmallFilm} from '../../types/small-film.ts';
+import {fetchChangeFavouriteStatusAction} from '../../store/api-actions.ts';
+import {useAppDispatch} from '../../hooks';
 
 export type PromoFilmCardProps = {
   id: string;
@@ -9,10 +12,22 @@ export type PromoFilmCardProps = {
   released: number;
   backgroundImage: string;
   posterImage: string;
+  favourites: SmallFilm[];
 }
 
-export default function PromoFilmCard({id, name, genre, released, backgroundImage, posterImage}: PromoFilmCardProps): JSX.Element {
+export default function PromoFilmCard({id, name, genre, released, backgroundImage, posterImage, favourites}: PromoFilmCardProps): JSX.Element {
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const [favouriteStatus, setFavouriteStatus] = useState<0 | 1>(0);
+
+  function handleClickMyList() {
+    const newStatus = favouriteStatus === 0 ? 1 : 0;
+    setFavouriteStatus(newStatus);
+    dispatch(fetchChangeFavouriteStatusAction({filmId: id, status: favouriteStatus}));
+    if (favouriteStatus === 0) {
+      navigate('/my-list');
+    }
+  }
 
   return (
     <section className="film-card">
@@ -53,13 +68,18 @@ export default function PromoFilmCard({id, name, genre, released, backgroundImag
               <button
                 className="btn btn--list film-card__button"
                 type="button"
-                onClick={() => navigate('/my-list')}
+                onClick={handleClickMyList}
               >
-                <svg viewBox="0 0 19 20" width="19" height="20">
-                  <use xlinkHref="#add"></use>
-                </svg>
+                {favouriteStatus === 1 ?
+                  <svg viewBox="0 0 19 20" width="19" height="20">
+                    <use xlinkHref="#in-list"></use>
+                  </svg>
+                  :
+                  <svg viewBox="0 0 19 20" width="19" height="20">
+                    <use xlinkHref="#add"></use>
+                  </svg>}
                 <span>My list</span>
-                <span className="film-card__count">9</span>
+                <span className="film-card__count">{favourites.length}</span>
               </button>
             </div>
           </div>

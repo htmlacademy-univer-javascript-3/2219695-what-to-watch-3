@@ -12,6 +12,7 @@ import {ReviewData} from '../types/reviewData.ts';
 import {AddReviewData} from '../types/add-review-data.ts';
 import {PromoFilm} from '../types/promo-film.ts';
 import {removePromoFilm} from './wtw-data/wtw-data.slice.ts';
+import {ChangeFavouriteStatusData} from '../types/change-favourite-status-data.ts';
 
 export const fetchFilmsAction = createAsyncThunk<SmallFilm[], undefined, {
   dispatch: AppDispatch;
@@ -73,6 +74,30 @@ export const fetchPromoFilmAction = createAsyncThunk<PromoFilm, undefined, {
   },
 );
 
+export const fetchFavouritesAction = createAsyncThunk<SmallFilm[], undefined, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'data/fetchFavourites',
+  async (_arg, {extra: api}) => {
+    const {data} = await api.get<SmallFilm[]>(APIRoute.FAVORITE);
+    return data;
+  },
+);
+
+export const fetchChangeFavouriteStatusAction = createAsyncThunk<Film, ChangeFavouriteStatusData, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'data/fetchChangeFavouriteStatus',
+  async ({filmId, status}, {extra: api}) => {
+    const {data} = await api.post<Film>(`${APIRoute.FAVORITE}/${filmId}/${status}`);
+    return data;
+  },
+);
+
 export const addReviewAction = createAsyncThunk<ReviewData, AddReviewData, {
     dispatch: AppDispatch;
     state: State;
@@ -103,10 +128,9 @@ export const loginAction = createAsyncThunk<void, AuthData, {
   extra: AxiosInstance;
 }>(
   'user/login',
-  async ({login: email, password}, {dispatch, extra: api}) => {
+  async ({login: email, password}, {extra: api}) => {
     const {data: {token}} = await api.post<UserData>(APIRoute.Login, {email, password});
     saveToken(token);
-    dispatch(fetchPromoFilmAction());
   },
 );
 

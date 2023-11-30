@@ -17,4 +17,6 @@ export const getSimilarFilmsDataLoadingStatus = (state: State): boolean => state
 
 export const getPromoFilm = (state: State): PromoFilm | undefined => state[NameSpace.Data].promoFilm;
 export const getPromoFilmDataLoadingStatus = (state: State): boolean => state[NameSpace.Data].isPromoFilmDataLoading;
+export const getFavourites = (state: State): SmallFilm[] => state[NameSpace.Data].favourites;
+export const getFavouritesDataLoadingStatus = (state: State): boolean => state[NameSpace.Data].isFavouritesDataLoading;
 export const getGenres = (state: State) => ['All genres', ...new Set(state[NameSpace.Data].films.map((film) => film.genre))] as Genre[];

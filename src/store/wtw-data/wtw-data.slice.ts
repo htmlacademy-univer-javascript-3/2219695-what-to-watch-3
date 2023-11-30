@@ -2,8 +2,8 @@ import {WtwData} from '../../types/state.ts';
 import {createSlice} from '@reduxjs/toolkit';
 import {NameSpace} from '../../components/app/const.ts';
 import {
-  addReviewAction,
-  fetchDetailsFilmAction,
+  addReviewAction, fetchChangeFavouriteStatusAction,
+  fetchDetailsFilmAction, fetchFavouritesAction,
   fetchFilmsAction, fetchPromoFilmAction,
   fetchReviewsAction,
   fetchSimilarFilmsAction
@@ -20,6 +20,8 @@ const initialState: WtwData = {
   isSimilarFilmsDataLoading: false,
   promoFilm: undefined,
   isPromoFilmDataLoading: false,
+  favourites: [],
+  isFavouritesDataLoading: false,
 };
 
 export const wtwData = createSlice({
@@ -66,6 +68,21 @@ export const wtwData = createSlice({
       .addCase(fetchPromoFilmAction.fulfilled, (state, action) => {
         state.promoFilm = action.payload;
         state.isPromoFilmDataLoading = false;
+      })
+      .addCase(fetchFavouritesAction.pending, (state) => {
+        state.isFavouritesDataLoading = true;
+      })
+      .addCase(fetchFavouritesAction.fulfilled, (state, action) => {
+        state.favourites = action.payload;
+        state.isFavouritesDataLoading = false;
+      })
+      .addCase(fetchChangeFavouriteStatusAction.fulfilled, (state, action) => {
+        const film = action.payload;
+        if (film.isFavorite) {
+          fetchFavouritesAction(); //TODO: Это побочное действие, от него нужно избавиться !!!
+        } else {
+          state.favourites.filter((favourite) => favourite.id !== film.id);
+        }
       })
       .addCase(addReviewAction.fulfilled, (state, action) => {
         state.reviews.push(action.payload);
