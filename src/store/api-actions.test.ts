@@ -16,7 +16,7 @@ import {
   logoutAction
 } from './api-actions.ts';
 import {APIRoute} from '../components/app/const.ts';
-import {extractActionsTypes} from '../utils/extractActionsTypes.ts';
+import {extractActionsTypes} from '../mocks/extractActionsTypes.ts';
 import {smallFilms} from '../mocks/smallFilms.ts';
 import {AuthData} from '../types/auth-data.ts';
 import * as tokenStorage from '../services/token';

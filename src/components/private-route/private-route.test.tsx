@@ -1,5 +1,5 @@
 import {MemoryHistory, createMemoryHistory} from 'history';
-import {withHistory} from '../../utils/mock-component';
+import {withHistory} from '../../mocks/mock-component.tsx';
 import {Route, Routes} from 'react-router-dom';
 import PrivateRoute from './private-route';
 import {render, screen} from '@testing-library/react';

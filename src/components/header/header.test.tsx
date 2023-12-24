@@ -1,7 +1,7 @@
-import {withHistory, withStore} from '../../utils/mock-component.tsx';
+import {withHistory, withStore} from '../../mocks/mock-component.tsx';
 import {render, screen} from '@testing-library/react';
 import {expect} from 'vitest';
-import {makeFakeStore} from '../../utils/makeFakeStore.ts';
+import {makeFakeStore} from '../../mocks/makeFakeStore.ts';
 import Header from './header.tsx';
 import {AppRoute, AuthStatus} from '../app/const.ts';
 import {Route, Routes} from 'react-router-dom';

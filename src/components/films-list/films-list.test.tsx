@@ -1,8 +1,8 @@
-import {withHistory, withStore} from '../../utils/mock-component.tsx';
+import {withHistory, withStore} from '../../mocks/mock-component.tsx';
 import {render, screen} from '@testing-library/react';
 import {expect} from 'vitest';
 import FilmsList from './films-list.tsx';
-import {makeFakeStore} from '../../utils/makeFakeStore.ts';
+import {makeFakeStore} from '../../mocks/makeFakeStore.ts';
 import {AuthStatus} from '../app/const.ts';
 import {smallFilms} from '../../mocks/smallFilms.ts';
 

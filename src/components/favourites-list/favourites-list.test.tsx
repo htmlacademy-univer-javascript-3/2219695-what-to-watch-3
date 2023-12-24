@@ -1,4 +1,4 @@
-import {withHistory, withStore} from '../../utils/mock-component.tsx';
+import {withHistory, withStore} from '../../mocks/mock-component.tsx';
 import {render, screen} from '@testing-library/react';
 import FavouritesList from './favourites-list.tsx';
 import {smallFilms} from '../../mocks/smallFilms.ts';

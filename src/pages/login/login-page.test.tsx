@@ -1,6 +1,6 @@
 import {render, screen} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import {withHistory, withStore} from '../../utils/mock-component';
+import {withHistory, withStore} from '../../mocks/mock-component.tsx';
 import LoginPage from './login-page.tsx';
 
 describe('Login page', () => {

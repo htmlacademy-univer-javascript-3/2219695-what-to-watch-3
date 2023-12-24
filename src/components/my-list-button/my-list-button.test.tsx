@@ -1,8 +1,8 @@
 import {describe, expect} from 'vitest';
 import {render, screen} from '@testing-library/react';
-import {withHistory, withStore} from '../../utils/mock-component.tsx';
+import {withHistory, withStore} from '../../mocks/mock-component.tsx';
 import {AppRoute, AuthStatus} from '../app/const.ts';
-import {makeFakeStore} from '../../utils/makeFakeStore.ts';
+import {makeFakeStore} from '../../mocks/makeFakeStore.ts';
 import {mockPromoFilm} from '../../mocks/mockPromoFilm.ts';
 import {createMemoryHistory} from 'history';
 import MyListButton from './my-list-button.tsx';

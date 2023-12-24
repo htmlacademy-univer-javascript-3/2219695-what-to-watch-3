@@ -1,6 +1,6 @@
 import {describe, expect} from 'vitest';
 import {render, screen} from '@testing-library/react';
-import {withHistory} from '../../utils/mock-component.tsx';
+import {withHistory} from '../../mocks/mock-component.tsx';
 import TabNavItem from './tab-nav-item.tsx';
 
 describe('TabNavItem', () => {
