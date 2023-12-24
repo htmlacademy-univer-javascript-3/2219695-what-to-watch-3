@@ -8,7 +8,7 @@ export type FavouritesListProps = {
 
 export default function FavouritesList({favourites}: FavouritesListProps): JSX.Element {
   const [idActiveCard, setIdActiveCard] = useState<string>('');
-  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   function handleArticleMouseOver(id: string) {
     timeoutRef.current = setTimeout(() => {
@@ -18,11 +18,11 @@ export default function FavouritesList({favourites}: FavouritesListProps): JSX.E
 
   function handleArticleMouseLeave() {
     setIdActiveCard('');
-    clearTimeout(timeoutRef.current as NodeJS.Timeout);
+    clearTimeout(timeoutRef.current as ReturnType<typeof setTimeout>);
   }
 
   return (
-    <div className="catalog__films-list">
+    <div className="catalog__films-list" data-testid="favouritesContainer">
       {favourites
         .map((film: SmallFilm) =>
           (
@@ -31,6 +31,7 @@ export default function FavouritesList({favourites}: FavouritesListProps): JSX.E
               key={film.id}
               onMouseOver={() => handleArticleMouseOver(film.id)}
               onMouseLeave={handleArticleMouseLeave}
+              data-testid="filmCard"
             >
               <SmallFilmCard
                 id={film.id}

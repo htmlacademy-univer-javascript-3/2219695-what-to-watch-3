@@ -1,10 +1,5 @@
 import {JSX} from 'react';
-
-function getRunTime(runTime: number): string {
-  const hours = Math.trunc(runTime / 60);
-  const minutes = runTime % 60;
-  return `${hours}h ${minutes}m`;
-}
+import {getRunTimePlayer} from '../../utils/getRunTime.ts';
 
 export type DetailsProps = {
   director: string;
@@ -28,8 +23,8 @@ export default function Details({director, starring, runTime, genre, released}: 
             {starring.map((star, index) =>
               (
                 index === starring.length - 1
-                  ? <span key={`id-${star}`}>{star}</span>
-                  : <span key={`id-${star}`}>{star}, <br/></span>
+                  ? <span key={`id-${star}`} data-testid="star">{star}</span>
+                  : <span key={`id-${star}`} data-testid="star">{star}, <br/></span>
               )
             )}
           </span>
@@ -38,7 +33,7 @@ export default function Details({director, starring, runTime, genre, released}: 
       <div className="film-card__text-col">
         <p className="film-card__details-item">
           <strong className="film-card__details-name">Run Time</strong>
-          <span className="film-card__details-value">{getRunTime(runTime)}</span>
+          <span className="film-card__details-value">{getRunTimePlayer(runTime)}</span>
         </p>
         <p className="film-card__details-item">
           <strong className="film-card__details-name">Genre</strong>

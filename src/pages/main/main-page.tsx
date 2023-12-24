@@ -8,8 +8,6 @@ import {Genre} from '../../types/genre.ts';
 import Footer from '../../components/footer/footer.tsx';
 import {getGenre} from '../../store/wtw-process/wtw-process.selectors.ts';
 import {getGenres, getPromoFilm, getPromoFilmDataLoadingStatus} from '../../store/wtw-data/wtw-data.selectors.ts';
-import HeaderGuest from '../../components/header-guest/header-guest.tsx';
-import {getCheckedLogin} from '../../store/user-process/user-process.selectors.ts';
 import LoadingPage from '../loading/loading-page.tsx';
 import {fetchPromoFilmAction} from '../../store/api-actions.ts';
 import {SmallFilm} from '../../types/small-film.ts';
@@ -24,7 +22,6 @@ export default function MainPage({favourites}: MainPageProps): JSX.Element {
   const activeGenre: Genre = useAppSelector(getGenre);
   const promoFilm = useAppSelector(getPromoFilm);
   const isPromoFilmDataLoading = useAppSelector(getPromoFilmDataLoadingStatus);
-  const isLogin = useAppSelector(getCheckedLogin);
 
   useEffect(() => {
     dispatch(fetchPromoFilmAction());
@@ -43,7 +40,7 @@ export default function MainPage({favourites}: MainPageProps): JSX.Element {
       </Helmet>
 
       {
-        promoFilm && isLogin ?
+        promoFilm &&
           <PromoFilmCard
             id={promoFilm.id}
             name={promoFilm.name}
@@ -53,11 +50,9 @@ export default function MainPage({favourites}: MainPageProps): JSX.Element {
             posterImage={promoFilm.posterImage}
             favourites={favourites}
           />
-          : <HeaderGuest/>
       }
 
-
-      <div className="page-content">
+      <div className="page-content" data-testid="mainPageContainer">
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
 

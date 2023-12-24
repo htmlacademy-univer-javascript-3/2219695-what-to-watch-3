@@ -1,9 +1,9 @@
 import {JSX, useState} from 'react';
-import {useNavigate} from 'react-router-dom';
 import Header from '../header/header.tsx';
 import {SmallFilm} from '../../types/small-film.ts';
-import {fetchChangeFavouriteStatusAction} from '../../store/api-actions.ts';
-import {useAppDispatch} from '../../hooks';
+import {fetchChangeFavouriteStatusAction, fetchDetailsFilmAction} from '../../store/api-actions.ts';
+import {useAppDispatch, useAppSelector} from '../../hooks';
+import {getCheckedLogin} from '../../store/user-process/user-process.selectors.ts';
 
 export type PromoFilmCardProps = {
   id: string;
@@ -16,17 +16,19 @@ export type PromoFilmCardProps = {
 }
 
 export default function PromoFilmCard({id, name, genre, released, backgroundImage, posterImage, favourites}: PromoFilmCardProps): JSX.Element {
+  //TODO: пофиксить добавление фильма
   const dispatch = useAppDispatch();
-  const navigate = useNavigate();
   const [favouriteStatus, setFavouriteStatus] = useState<0 | 1>(0);
+  const isLogin = useAppSelector(getCheckedLogin);
 
   function handleClickMyList() {
     const newStatus = favouriteStatus === 0 ? 1 : 0;
     setFavouriteStatus(newStatus);
     dispatch(fetchChangeFavouriteStatusAction({filmId: id, status: favouriteStatus}));
-    if (favouriteStatus === 0) {
-      navigate('/my-list');
-    }
+  }
+
+  function handleClickPlay() {
+    dispatch(fetchDetailsFilmAction({filmId: id, isPromo: true}));
   }
 
   return (
@@ -58,29 +60,33 @@ export default function PromoFilmCard({id, name, genre, released, backgroundImag
               <button
                 className="btn btn--play film-card__button"
                 type="button"
-                onClick={() => navigate(`/player/${id}`)}
+                onClick={handleClickPlay}
+                data-testid="playButton"
               >
                 <svg viewBox="0 0 19 19" width="19" height="19">
                   <use xlinkHref="#play-s"></use>
                 </svg>
                 <span>Play</span>
               </button>
-              <button
-                className="btn btn--list film-card__button"
-                type="button"
-                onClick={handleClickMyList}
-              >
-                {favouriteStatus === 1 ?
-                  <svg viewBox="0 0 19 20" width="19" height="20">
-                    <use xlinkHref="#in-list"></use>
-                  </svg>
-                  :
-                  <svg viewBox="0 0 19 20" width="19" height="20">
-                    <use xlinkHref="#add"></use>
-                  </svg>}
-                <span>My list</span>
-                <span className="film-card__count">{favourites.length}</span>
-              </button>
+              {
+                isLogin &&
+                <button
+                  className="btn btn--list film-card__button"
+                  type="button"
+                  onClick={handleClickMyList}
+                >
+                  {favouriteStatus === 1 ?
+                    <svg viewBox="0 0 19 20" width="19" height="20">
+                      <use xlinkHref="#in-list"></use>
+                    </svg>
+                    :
+                    <svg viewBox="0 0 19 20" width="19" height="20">
+                      <use xlinkHref="#add"></use>
+                    </svg>}
+                  <span>My list</span>
+                  <span className="film-card__count">{favourites.length}</span>
+                </button>
+              }
             </div>
           </div>
         </div>

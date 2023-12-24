@@ -11,7 +11,7 @@ export default function Reviews({reviews}: ReviewsProps): JSX.Element {
   const secondCol = reviews.slice(Math.ceil(reviews.length / 2), reviews.length);
 
   return (
-    <div className="film-card__reviews film-card__row">
+    <div className="film-card__reviews film-card__row" data-testid="reviews-container">
       <div className="film-card__reviews-col">
         {firstCol.map((review) =>
           (

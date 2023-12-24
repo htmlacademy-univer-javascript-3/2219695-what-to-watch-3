@@ -7,6 +7,7 @@ import {fetchSimilarFilmsAction} from '../../store/api-actions.ts';
 import {getFilms, getSimilarFilms} from '../../store/wtw-data/wtw-data.selectors.ts';
 
 const MAX_SHOW_FILMS = 8;
+const MAX_SHOW_SIMILAR_FILMS = 4;
 
 export type FilmsListProps = {
   genre?: string;
@@ -15,8 +16,9 @@ export type FilmsListProps = {
 
 export default function FilmsList({genre = 'All genres', filmId}: FilmsListProps): JSX.Element {
   const [idActiveCard, setIdActiveCard] = useState<string>('');
-  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [end, setEnd] = useState(MAX_SHOW_FILMS);
+  const [endSimilar, setEndSimilar] = useState(MAX_SHOW_SIMILAR_FILMS);
   const dispatch = useAppDispatch();
   const films = useAppSelector(getFilms);
   const filmsByGenre = genre === 'All genres' ? films : films.filter((film) => (film.genre === genre));
@@ -36,19 +38,23 @@ export default function FilmsList({genre = 'All genres', filmId}: FilmsListProps
 
   function handleArticleMouseLeave() {
     setIdActiveCard('');
-    clearTimeout(timeoutRef.current as NodeJS.Timeout);
+    clearTimeout(timeoutRef.current as ReturnType<typeof setTimeout>);
   }
 
   function handleShowMoreClick() {
     setEnd((prev) => prev + MAX_SHOW_FILMS);
   }
 
+  function handleShowMoreSimilarClick() {
+    setEndSimilar((prev) => prev + MAX_SHOW_SIMILAR_FILMS);
+  }
+
   if (filmId !== undefined) {
     return (
       <>
-        <div className="catalog__films-list">
+        <div className="catalog__films-list" data-testid="similarFilmsContainer">
           {similarFilms
-            .slice(0, end)
+            .slice(0, endSimilar)
             .map((film: SmallFilm) =>
               (
                 <article
@@ -69,10 +75,10 @@ export default function FilmsList({genre = 'All genres', filmId}: FilmsListProps
             )}
         </div>
         {
-          similarFilms.slice(0, end).length > end - 1 &&
+          similarFilms.slice(0, endSimilar).length > endSimilar - 1 &&
           <div
             className="catalog__more"
-            onClick={handleShowMoreClick}
+            onClick={handleShowMoreSimilarClick}
           >
             <ShowMoreButton/>
           </div>
@@ -85,7 +91,7 @@ export default function FilmsList({genre = 'All genres', filmId}: FilmsListProps
     <div>
       {genre === 'All genres' ?
         <>
-          <div className="catalog__films-list">
+          <div className="catalog__films-list" data-testid="allGenresFilmsContainer">
             {films
               .slice(0, end)
               .map((film: SmallFilm) =>
@@ -118,7 +124,7 @@ export default function FilmsList({genre = 'All genres', filmId}: FilmsListProps
           }
         </> :
         <>
-          <div className="catalog__films-list">
+          <div className="catalog__films-list" data-testid="filmsByGenreContainer">
             {filmsByGenre
               .slice(0, end)
               .map((film: SmallFilm) =>

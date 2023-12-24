@@ -1,17 +1,6 @@
 import {JSX} from 'react';
-
-function getDateTime(date: string): string {
-  return date.split('T')[0];
-}
-
-function getDate(date: string): string {
-  const newDate = new Date(Date.parse(date));
-  const year = newDate.getFullYear();
-  const month = newDate.toLocaleString('en', { month: 'long' });
-  const day = newDate.getUTCDate();
-
-  return `${month} ${day}, ${year}`;
-}
+import {getDateTime} from '../../utils/getDateTime.ts';
+import {getDate} from '../../utils/getDate.ts';
 
 export type ReviewProps = {
   date: string;

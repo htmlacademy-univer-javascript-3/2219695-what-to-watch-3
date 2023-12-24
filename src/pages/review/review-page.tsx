@@ -15,7 +15,7 @@ export default function ReviewPage(): JSX.Element {
           <Helmet>
             <title>WTW. Оставить комментарий</title>
           </Helmet>
-          <section className="film-card film-card--full" >
+          <section className="film-card film-card--full" data-testid="reviewPageContainer">
             <div className="film-card__header">
               <div className="film-card__bg">
                 <img src={film.backgroundImage} alt={film.name} />
@@ -30,7 +30,7 @@ export default function ReviewPage(): JSX.Element {
               </div>
             </div>
 
-            <div className="add-review">
+            <div className="add-review" data-testid="reviewContainer">
               <ReviewForm filmId={film.id}/>
             </div>
 
