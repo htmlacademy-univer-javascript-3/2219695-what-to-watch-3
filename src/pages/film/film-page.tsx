@@ -5,31 +5,22 @@ import Footer from '../../components/footer/footer.tsx';
 import Tabs from '../../components/tabs/tabs.tsx';
 import FilmsList from '../../components/films-list/films-list.tsx';
 import Header from '../../components/header/header.tsx';
-import {useAppDispatch, useAppSelector} from '../../hooks';
+import {useAppSelector} from '../../hooks';
 import LoadingPage from '../loading/loading-page.tsx';
 import {
   getDetailsFilm,
   getDetailsFilmDataLoadingStatus,
-  getFavourites,
   getReviews
 } from '../../store/wtw-data/wtw-data.selectors.ts';
 import {getCheckedLogin} from '../../store/user-process/user-process.selectors.ts';
-import {fetchChangeFavouriteStatusAction} from '../../store/api-actions.ts';
+import MyListButton from '../../components/my-list-button/my-list-button.tsx';
 
 export default function FilmPage(): JSX.Element {
-  const dispatch = useAppDispatch();
   const film = useAppSelector(getDetailsFilm);
   const filmReviews = useAppSelector(getReviews);
   const isLogin = useAppSelector(getCheckedLogin);
   const isDetailsFilmDataLoading = useAppSelector(getDetailsFilmDataLoadingStatus);
-  const favourites = useAppSelector(getFavourites);
   const navigate = useNavigate();
-
-  function handleClickMyList() {
-    if (film) {
-      dispatch(fetchChangeFavouriteStatusAction({filmId: film.id, status: Number(!film.isFavorite) as 0 | 1}));
-    }
-  }
 
   if (isDetailsFilmDataLoading) {
     return (
@@ -74,23 +65,7 @@ export default function FilmPage(): JSX.Element {
                       </svg>
                       <span>Play</span>
                     </button>
-                    {isLogin &&
-                      <button
-                        className="btn btn--list film-card__button"
-                        type="button"
-                        onClick={handleClickMyList}
-                      >
-                        {film.isFavorite ?
-                          <svg viewBox="0 0 19 20" width="19" height="20">
-                            <use xlinkHref="#in-list"></use>
-                          </svg>
-                          :
-                          <svg viewBox="0 0 19 20" width="19" height="20">
-                            <use xlinkHref="#add"></use>
-                          </svg>}
-                        <span>My list</span>
-                        <span className="film-card__count">{favourites.length}</span>
-                      </button>}
+                    <MyListButton/>
                     {isLogin && <Link to={`/films/${film.id}/review`} className="btn film-card__button">Add review</Link>}
                   </div>
                 </div>

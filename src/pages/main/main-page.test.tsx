@@ -2,14 +2,13 @@ import {describe, expect} from 'vitest';
 import {render, screen} from '@testing-library/react';
 import {withHistory, withStore} from '../../utils/mock-component.tsx';
 import {makeFakeStore} from '../../utils/makeFakeStore.ts';
-import {smallFilms} from '../../mocks/smallFilms.ts';
 import MainPage from './main-page.tsx';
 import {AuthStatus} from '../../components/app/const.ts';
 
 describe('Main page', () => {
   it('should render correctly', () => {
     const {withStoreComponent} = withStore(
-      <MainPage favourites={smallFilms}/>, makeFakeStore({
+      <MainPage/>, makeFakeStore({
         USER: {authStatus: AuthStatus.Auth, avatarUrl: ''}
       }));
 
