@@ -12,7 +12,6 @@ export type SmallFilmCardProps = {
   isActiveCard: string;
 }
 
-
 export default function SmallFilmCard({id, previewImage, name, previewVideoLink, isActiveCard}: SmallFilmCardProps): JSX.Element {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();

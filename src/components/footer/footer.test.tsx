@@ -1,11 +1,11 @@
 import {describe, expect} from 'vitest';
 import {render, screen} from '@testing-library/react';
-import {withHistory, withStore} from '../../utils/mock-component.tsx';
+import {withHistory, withStore} from '../../mocks/mock-component.tsx';
 import Footer from './footer.tsx';
 import {createMemoryHistory} from 'history';
 import {AppRoute, AuthStatus} from '../app/const.ts';
 import {Route, Routes} from 'react-router-dom';
-import {makeFakeStore} from '../../utils/makeFakeStore.ts';
+import {makeFakeStore} from '../../mocks/makeFakeStore.ts';
 import userEvent from '@testing-library/user-event';
 
 

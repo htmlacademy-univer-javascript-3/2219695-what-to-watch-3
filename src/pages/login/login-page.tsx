@@ -14,7 +14,6 @@ export default function LoginPage(): JSX.Element {
   const [password, setPassword] = useState('');
   const [loginInvalid, setLoginInvalid] = useState(false);
   const [passwordInvalid, setPasswordInvalid] = useState(false);
-
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 

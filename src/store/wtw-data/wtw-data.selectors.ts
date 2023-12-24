@@ -14,7 +14,6 @@ export const getReviews = (state: Pick<State, NameSpace.Data>): ReviewData[] => 
 export const getReviewsDataLoadingStatus = (state: Pick<State, NameSpace.Data>): boolean => state[NameSpace.Data].isReviewsDataLoading;
 export const getSimilarFilms = (state: Pick<State, NameSpace.Data>): SmallFilm[] => state[NameSpace.Data].similarFilms;
 export const getSimilarFilmsDataLoadingStatus = (state: Pick<State, NameSpace.Data>): boolean => state[NameSpace.Data].isSimilarFilmsDataLoading;
-
 export const getPromoFilm = (state: Pick<State, NameSpace.Data>): PromoFilm | undefined => state[NameSpace.Data].promoFilm;
 export const getPromoFilmDataLoadingStatus = (state: Pick<State, NameSpace.Data>): boolean => state[NameSpace.Data].isPromoFilmDataLoading;
 export const getFavourites = (state: Pick<State, NameSpace.Data>): SmallFilm[] => state[NameSpace.Data].favourites;

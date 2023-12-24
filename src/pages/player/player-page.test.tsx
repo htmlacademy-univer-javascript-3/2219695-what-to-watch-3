@@ -1,7 +1,7 @@
 import {describe, expect, vi} from 'vitest';
 import {render, screen} from '@testing-library/react';
-import {withHistory, withStore} from '../../utils/mock-component.tsx';
-import {makeFakeStore} from '../../utils/makeFakeStore.ts';
+import {withHistory, withStore} from '../../mocks/mock-component.tsx';
+import {makeFakeStore} from '../../mocks/makeFakeStore.ts';
 import userEvent from '@testing-library/user-event';
 import PlayerPage from './player-page.tsx';
 import {AuthStatus} from '../../components/app/const.ts';

@@ -1,8 +1,8 @@
 import {render, screen} from '@testing-library/react';
 import {MemoryHistory, createMemoryHistory} from 'history';
 import App from './app';
-import {withHistory, withStore} from '../../utils/mock-component';
-import {makeFakeStore} from '../../utils/makeFakeStore.ts';
+import {withHistory, withStore} from '../../mocks/mock-component.tsx';
+import {makeFakeStore} from '../../mocks/makeFakeStore.ts';
 import {AppRoute, AuthStatus} from './const.ts';
 import {film} from '../../mocks/film.ts';
 import {expect} from 'vitest';

@@ -1,11 +1,11 @@
-import {withHistory, withStore} from '../../utils/mock-component.tsx';
+import {withHistory, withStore} from '../../mocks/mock-component.tsx';
 import {render, screen} from '@testing-library/react';
 import {expect} from 'vitest';
-import {makeFakeStore} from '../../utils/makeFakeStore.ts';
+import {makeFakeStore} from '../../mocks/makeFakeStore.ts';
 import GenresList from './genres-list.tsx';
 import {mockGenres} from '../../mocks/mockGenres.ts';
 import userEvent from '@testing-library/user-event';
-import {extractActionsTypes} from '../../utils/extractActionsTypes.ts';
+import {extractActionsTypes} from '../../mocks/extractActionsTypes.ts';
 import {setGenre} from '../../store/wtw-process/wtw-process.slice.ts';
 
 describe('GenresList', () => {
