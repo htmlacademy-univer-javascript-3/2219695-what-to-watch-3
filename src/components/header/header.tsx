@@ -1,17 +1,23 @@
 import {JSX} from 'react';
-import {Link} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 import {AppRoute} from '../app/const.ts';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import {logoutAction} from '../../store/api-actions.ts';
-import {getCheckedLogin} from '../../store/user-process/user-process.selectors.ts';
+import {getAvatarUrl, getCheckedLogin} from '../../store/user-process/user-process.selectors.ts';
 
 export default function Header(): JSX.Element {
   const dispatch = useAppDispatch();
   const isLogin = useAppSelector(getCheckedLogin);
+  const avatarUrl = useAppSelector(getAvatarUrl);
+  const navigate = useNavigate();
+
+  function handleAvatarClick() {
+    navigate('/my-list');
+  }
 
   return (
     <header className="page-header film-card__head">
-      <div className="logo">
+      <div className="logo" data-testid="testLogo">
         <Link to={AppRoute.Main} className="logo__link">
           <span className="logo__letter logo__letter--1">W</span>
           <span className="logo__letter logo__letter--2">T</span>
@@ -22,9 +28,9 @@ export default function Header(): JSX.Element {
       <ul className="user-block">
         {isLogin ?
           <>
-            <li className="user-block__item">
+            <li className="user-block__item" onClick={handleAvatarClick}>
               <div className="user-block__avatar">
-                <img src="img/avatar.jpg" alt="User avatar" width="63" height="63"/>
+                <img src={avatarUrl} alt="User avatar" width="63" height="63"/>
               </div>
             </li>
             <li className="user-block__item">
@@ -44,6 +50,7 @@ export default function Header(): JSX.Element {
             <Link
               to={AppRoute.Login}
               className="user-block__link"
+              data-testid="loginLink"
             >
               Sign in
             </Link>

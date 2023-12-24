@@ -22,8 +22,8 @@ export default function Tabs({rating, description, director, scoresCount, starri
   const [activeTab, setActiveTab] = useState('overview');
 
   return (
-    <div className="film-card__desc">
-      <nav className="film-nav film-card__nav">
+    <div className="film-card__desc" data-testid="tabContainer">
+      <nav className="film-nav film-card__nav" data-testid="tabNavContainer">
         <ul className="film-nav__list">
           <TabNavItem title="Overview" id="overview" activeTab={activeTab} setActiveTab={setActiveTab}/>
           <TabNavItem title="Details" id="details" activeTab={activeTab} setActiveTab={setActiveTab}/>

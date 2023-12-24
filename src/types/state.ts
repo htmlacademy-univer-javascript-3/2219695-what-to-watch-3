@@ -8,6 +8,7 @@ import {PromoFilm} from './promo-film.ts';
 
 export type UserProcess = {
   authStatus: AuthStatus;
+  avatarUrl: string;
 };
 
 export type WtwProcess = {

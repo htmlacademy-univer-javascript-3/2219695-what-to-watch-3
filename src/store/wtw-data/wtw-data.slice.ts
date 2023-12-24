@@ -27,11 +27,7 @@ const initialState: WtwData = {
 export const wtwData = createSlice({
   name: NameSpace.Data,
   initialState,
-  reducers: {
-    removePromoFilm: (state) => {
-      state.promoFilm = undefined;
-    },
-  },
+  reducers: {},
   extraReducers(builder) {
     builder
       .addCase(fetchFilmsAction.pending, (state) => {
@@ -78,9 +74,10 @@ export const wtwData = createSlice({
       })
       .addCase(fetchChangeFavouriteStatusAction.fulfilled, (state, action) => {
         const film = action.payload;
-        if (film.isFavorite) {
-          fetchFavouritesAction(); //TODO: Это побочное действие, от него нужно избавиться !!!
-        } else {
+        if (state.detailsFilm) {
+          state.detailsFilm.isFavorite = !state.detailsFilm.isFavorite;
+        }
+        if (!film.isFavorite) {
           state.favourites.filter((favourite) => favourite.id !== film.id);
         }
       })
@@ -89,5 +86,3 @@ export const wtwData = createSlice({
       });
   }
 });
-
-export const {removePromoFilm} = wtwData.actions;

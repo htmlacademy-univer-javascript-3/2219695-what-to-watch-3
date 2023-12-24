@@ -2,7 +2,7 @@ import {createAsyncThunk} from '@reduxjs/toolkit';
 import {AppDispatch, State} from '../types/state.ts';
 import {AxiosInstance} from 'axios';
 import {SmallFilm} from '../types/small-film.ts';
-import {APIRoute} from '../components/app/const.ts';
+import {APIRoute, AppRoute} from '../components/app/const.ts';
 import {redirectToRoute} from './action.ts';
 import {AuthData} from '../types/auth-data.ts';
 import {UserData} from '../types/user-data.ts';
@@ -11,7 +11,6 @@ import {Film} from '../types/film.ts';
 import {ReviewData} from '../types/reviewData.ts';
 import {AddReviewData} from '../types/add-review-data.ts';
 import {PromoFilm} from '../types/promo-film.ts';
-import {removePromoFilm} from './wtw-data/wtw-data.slice.ts';
 import {ChangeFavouriteStatusData} from '../types/change-favourite-status-data.ts';
 
 export const fetchFilmsAction = createAsyncThunk<SmallFilm[], undefined, {
@@ -26,14 +25,17 @@ export const fetchFilmsAction = createAsyncThunk<SmallFilm[], undefined, {
   },
 );
 
-export const fetchDetailsFilmAction = createAsyncThunk<Film, {filmId: string}, {
+export const fetchDetailsFilmAction = createAsyncThunk<Film, {filmId: string; isPromo?: boolean}, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
 }>(
   'data/fetchDetailsFilm',
-  async ({filmId}, {extra: api}) => {
+  async ({filmId, isPromo = false}, {dispatch, extra: api}) => {
     const {data} = await api.get<Film>(`${APIRoute.Films}/${filmId}`);
+    if (isPromo) {
+      dispatch(redirectToRoute(`/player/${filmId}`));
+    }
     return data;
   },
 );
@@ -92,8 +94,9 @@ export const fetchChangeFavouriteStatusAction = createAsyncThunk<Film, ChangeFav
   extra: AxiosInstance;
 }>(
   'data/fetchChangeFavouriteStatus',
-  async ({filmId, status}, {extra: api}) => {
+  async ({filmId, status}, {dispatch, extra: api}) => {
     const {data} = await api.post<Film>(`${APIRoute.FAVORITE}/${filmId}/${status}`);
+    dispatch(fetchFavouritesAction());
     return data;
   },
 );
@@ -111,26 +114,28 @@ export const addReviewAction = createAsyncThunk<ReviewData, AddReviewData, {
   },
 );
 
-export const checkAuthAction = createAsyncThunk<void, undefined, {
+export const checkAuthAction = createAsyncThunk<UserData, undefined, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
 }>(
   'user/checkAuth',
   async (_arg, {extra: api}) => {
-    await api.get(APIRoute.Login);
+    const {data} = await api.get<UserData>(APIRoute.Login);
+    return data;
   },
 );
 
-export const loginAction = createAsyncThunk<void, AuthData, {
+export const loginAction = createAsyncThunk<UserData, AuthData, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
 }>(
   'user/login',
   async ({login: email, password}, {extra: api}) => {
-    const {data: {token}} = await api.post<UserData>(APIRoute.Login, {email, password});
-    saveToken(token);
+    const {data} = await api.post<UserData>(APIRoute.Login, {email, password});
+    saveToken(data.token);
+    return data;
   },
 );
 
@@ -142,7 +147,7 @@ export const logoutAction = createAsyncThunk<void, undefined, {
   'user/logout',
   async (_arg, {dispatch,extra: api}) => {
     await api.delete(APIRoute.Logout);
-    dispatch(removePromoFilm());
+    dispatch(redirectToRoute(AppRoute.Main));
     dropToken();
   },
 );

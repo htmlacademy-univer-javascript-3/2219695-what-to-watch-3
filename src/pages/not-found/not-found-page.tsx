@@ -13,7 +13,7 @@ export default function NotFoundPage(): JSX.Element {
       </Helmet>
       <div className="user-page">
         <header className="page-header user-page__head">
-          <div className="logo">
+          <div className="logo" data-testid="logo-test">
             <div className="logo__link">
               <span className="logo__letter logo__letter--1">W</span>
               <span className="logo__letter logo__letter--2">T</span>

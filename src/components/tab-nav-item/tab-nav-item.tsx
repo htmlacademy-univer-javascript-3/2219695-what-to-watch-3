@@ -10,9 +10,9 @@ export type TabNavItemProps = {
 }
 
 export default function TabNavItem({id, title, activeTab, setActiveTab}: TabNavItemProps): JSX.Element {
-  const handleClick = () => {
+  function handleClick() {
     setActiveTab(id);
-  };
+  }
 
   return (
     <li className={classNames('film-nav__item', {'film-nav__item--active': activeTab === id})} onClick={handleClick}>

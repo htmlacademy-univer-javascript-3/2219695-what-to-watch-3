@@ -5,6 +5,7 @@ import {AuthStatus, NameSpace} from '../../components/app/const.ts';
 
 const initialState: UserProcess = {
   authStatus: AuthStatus.Unknown,
+  avatarUrl: '',
 };
 
 export const userProcess = createSlice({
@@ -13,13 +14,15 @@ export const userProcess = createSlice({
   reducers: {},
   extraReducers(builder) {
     builder
-      .addCase(checkAuthAction.fulfilled, (state) => {
+      .addCase(checkAuthAction.fulfilled, (state, action) => {
+        state.avatarUrl = action.payload.avatarUrl;
         state.authStatus = AuthStatus.Auth;
       })
       .addCase(checkAuthAction.rejected, (state) => {
         state.authStatus = AuthStatus.NoAuth;
       })
-      .addCase(loginAction.fulfilled, (state) => {
+      .addCase(loginAction.fulfilled, (state, action) => {
+        state.avatarUrl = action.payload.avatarUrl;
         state.authStatus = AuthStatus.Auth;
       })
       .addCase(loginAction.rejected, (state) => {

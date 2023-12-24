@@ -12,8 +12,6 @@ import MyListPage from '../../pages/my-list/my-list-page.tsx';
 import {HelmetProvider} from 'react-helmet-async';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import LoadingPage from '../../pages/loading/loading-page.tsx';
-import HistoryRouter from '../history-route/history-route.tsx';
-import browserHistory from '../../browser-history.ts';
 import {getAuthCheckedStatus, getAuthStatus} from '../../store/user-process/user-process.selectors.ts';
 import {
   getFavourites,
@@ -41,42 +39,40 @@ export default function App(): JSX.Element {
 
   return (
     <HelmetProvider>
-      <HistoryRouter history={browserHistory}>
-        <Routes>
-          <Route
-            path={AppRoute.Main}
-            element={<MainPage favourites={favourites}/>}
-          />
-          <Route
-            path={AppRoute.Login}
-            element={<LoginPage/>}
-          />
-          <Route
-            path={AppRoute.MyList}
-            element={
-              <PrivateRoute authStatus={authStatus}>
-                <MyListPage favourites={favourites}/>
-              </PrivateRoute>
-            }
-          />
-          <Route
-            path={AppRoute.Film}
-            element={<FilmPage/>}
-          />
-          <Route
-            path={AppRoute.AddReview}
-            element={<ReviewPage/>}
-          />
-          <Route
-            path={AppRoute.Player}
-            element={<PlayerPage/>}
-          />
-          <Route
-            path={'*'}
-            element={<NotFoundPage/>}
-          />
-        </Routes>
-      </HistoryRouter>
+      <Routes>
+        <Route
+          path={AppRoute.Main}
+          element={<MainPage favourites={favourites}/>}
+        />
+        <Route
+          path={AppRoute.Login}
+          element={<LoginPage/>}
+        />
+        <Route
+          path={AppRoute.MyList}
+          element={
+            <PrivateRoute authStatus={authStatus}>
+              <MyListPage favourites={favourites}/>
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path={AppRoute.Film}
+          element={<FilmPage/>}
+        />
+        <Route
+          path={AppRoute.AddReview}
+          element={<ReviewPage/>}
+        />
+        <Route
+          path={AppRoute.Player}
+          element={<PlayerPage/>}
+        />
+        <Route
+          path={'*'}
+          element={<NotFoundPage/>}
+        />
+      </Routes>
     </HelmetProvider>
   );
 }

@@ -5,7 +5,6 @@ export type VideoPlayerProps = {
   previewImage: string;
 }
 
-
 export default function VideoPlayer({previewVideoLink, previewImage}: VideoPlayerProps): JSX.Element {
   return (
     <video
@@ -16,6 +15,7 @@ export default function VideoPlayer({previewVideoLink, previewImage}: VideoPlaye
       muted
       loop
       autoPlay
+      data-testid="filmVideo"
     >
     </video>
   );

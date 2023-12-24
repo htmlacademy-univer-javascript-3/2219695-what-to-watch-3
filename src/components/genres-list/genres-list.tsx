@@ -19,14 +19,19 @@ export default function GenresList({genres}: GenresListProps): JSX.Element {
   }
 
   return (
-    <ul className="catalog__genres-list">
+    <ul className="catalog__genres-list" data-testid="genreCatalog">
       {genres.map((genre) =>
         (
-          <li key={genre} className={cn('catalog__genres-item', {'catalog__genres-item--active': activeGenre === genre})}>
+          <li
+            key={genre}
+            className={cn('catalog__genres-item', {'catalog__genres-item--active': activeGenre === genre})}
+            data-testid="genreItem"
+          >
             <Link
               to={'#'}
               className="catalog__genres-link"
               onClick={() => handleLinkClick(genre)}
+              data-testid="genreItemLink"
             >
               {genre}
             </Link>

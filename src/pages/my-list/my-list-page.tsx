@@ -15,10 +15,10 @@ export default function MyListPage({favourites}: MyListPageProps): JSX.Element {
       <Helmet>
         <title>WTW. Мой список фильмов</title>
       </Helmet>
-      <div className="user-page">
+      <div className="user-page" data-testid="myListPageContainer">
         <Header/>
 
-        <section className="catalog">
+        <section className="catalog" data-testid="userCatalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
           <FavouritesList favourites={favourites}/>
         </section>
