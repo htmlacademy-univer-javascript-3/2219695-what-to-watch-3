@@ -42,7 +42,7 @@ export default function App(): JSX.Element {
       <Routes>
         <Route
           path={AppRoute.Main}
-          element={<MainPage favourites={favourites}/>}
+          element={<MainPage/>}
         />
         <Route
           path={AppRoute.Login}
